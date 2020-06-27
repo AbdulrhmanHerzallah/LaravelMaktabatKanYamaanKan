@@ -94,10 +94,16 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::post('/store-conform-data' , ['as' => 'user.store_data_conform' , 'uses' => 'UserController@store_data_conform']);
         Route::get('/store-conform-data/{id}' , ['as' => 'user.index' , 'uses' => 'UserController@index_conform_data']);
         Route::get('/users' , ['as' => 'user.get_users_info' , 'uses' => 'UserController@get_users_info']);
+        Route::get('/user/eddi-account-settings' , ['as' => 'user.edit_account_sett' , 'uses' => 'UserController@index_edit_user']);
+        Route::post('/user/update-account-settings' , ['as' => 'user.update_user_account' , 'uses' => 'UserController@update_user_account']);
         Route::post('/update-users' , ['as' => 'user.update_users' , 'uses' => 'UserController@update_users']);
     });
 });
 
+
+use RealRashid\SweetAlert\Facades\Alert;
+
 Route::get('/test' , function (){
-    dd(Hash::make('kk123123'));
+//    dd(Hash::make('kk123123'));
+
 });

@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\UpdateUserByAdminRequest;
 use App\Http\Requests\CreateUserByAdminRequest;
+use App\Jobs\NewUserCreateByAdminJob;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\UpdateUserAccountRequest;
+
 
 
 class UserController extends Controller
@@ -29,21 +33,19 @@ class UserController extends Controller
 
         $user = User::create(array_merge($request->all() , ['password' => $password_hash]));
 
+        $this->dispatch(new NewUserCreateByAdminJob($user , $password));
 
-        Mail::to($request->email)
-            ->send(new \App\Mail\NewUserMail($user , $password));
+        toast('تم إنشاء المستخدم بنجاح','success');
 
+        return redirect()->back();
 
     }
 
-    public function store_data_conform(Request $request)
+    public function accountActivationFromUser(Request $request)
     {
         if (auth()->id() === (int) $request->id)
         {
             $user =  User::find($request->id);
-            $user->national_identity = $request->national_identity;
-            $user->social_insurance_number = $request->social_insurance_number;
-            $user->data_subscribe_social = $request->data_subscribe_social;
             $user->is_confirmed = 1;
             $user->save();
         }else {
@@ -55,7 +57,7 @@ class UserController extends Controller
     {
         if (auth()->id() == (int) $id)
         {
-            return view('dashboard.user.confirm-user-data.create' , ['id' => $id]);
+            return view('dashboard.user.confirm-user-data.index' , ['id' => $id]);
         }
       return abort(404);
     }
@@ -73,4 +75,31 @@ class UserController extends Controller
      $user = User::find($request->id)->update($request->all());
      return redirect()->back()->with('success' , 'تم تحديث البينات المستخدم بنجاح');
     }
+
+
+    public function index_edit_user()
+    {
+       $user =  User::findOrFail(auth()->id());
+       return view('dashboard.user.account-settings.edit' , compact('user'));
+    }
+
+    public function update_user_account(UpdateUserAccountRequest $request)
+    {
+        $user =  User::findOrFail(auth()->id());
+
+        if (Hash::check($request->main_password ,  $user->password))
+        {
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            toast('تم تحديدث البينات بنجاح','success');
+            return redirect()->back();
+        }
+        return redirect()->back();
+
+    }
+
+
+
+
 }

@@ -4,10 +4,15 @@
 
 @section('content')
     <div class="container">
+        <div class="container mt-3">
+            <div class="content mt-2 mb-4">
+                {{ Breadcrumbs::render('create_user') }}
+            </div>
+        </div>
     <!-- Horizontal Form -->
-    <div class="card card-success mt-5">
+    <div class="card card-success mt-2">
         <div class="card-header">
-            <h4 class="">إنشاء موظف جديد</h4>
+            <h5 class="">إنشاء موظف جديد</h5>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -53,17 +58,17 @@
                     </div>
 
                 <div class="form-group">
-                    <label for="national_identity">رقم الهوية</label>
+                    <label for="national_identity">رقم الهاوية</label>
                     <input value="{{old('national_identity')}}" type="text" name="national_identity" class="form-control @error('national_identity') is-invalid @enderror" id="national_identity">
                 </div>
 
                 <div class="form-group">
-                    <label for="social_insurance_number">رقم الضمان الاجتماعي</label>
+                    <label for="social_insurance_number">رقم التأمينات الاجتماعية</label>
                     <input type="text" value="{{old('social_insurance_number')}}" name="social_insurance_number" class="form-control @error('social_insurance_number') is-invalid @enderror" id="social_insurance_number">
                 </div>
 
                 <div class="form-group">
-                    <label for="social_insurance_number">تاريخ الاشتراك في التأمين الاجتماعي</label>
+                    <label for="social_insurance_number">تاريخ التسجيل في التأمينات الاجتماعية</label>
                     <input type="date" value="{{old('data_subscribe_social')}}" name="data_subscribe_social" class="form-control @error('data_subscribe_social') is-invalid @enderror" id="social_insurance_number">
                 </div>
 

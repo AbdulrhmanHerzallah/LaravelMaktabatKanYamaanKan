@@ -51,3 +51,21 @@ Breadcrumbs::for('create_demand' , function ($trail) {
     $trail->push(__('layout.create_demand') , route('demand.create'));
 
 });
+
+
+Breadcrumbs::for('create_user' , function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(__('layout.create_user_by_admin') , route('user.create'));
+
+});
+
+Breadcrumbs::for('users_info' , function ($trail) {
+    $trail->parent('create_user');
+    $trail->push(__('layout.users_info') , route('user.get_users_info'));
+});
+
+
+Breadcrumbs::for('account_settings' , function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(__('layout.update_my_settings') , route('user.edit_account_sett'));
+});

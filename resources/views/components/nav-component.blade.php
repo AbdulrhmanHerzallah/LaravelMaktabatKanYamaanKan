@@ -6,24 +6,24 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="/" class="nav-link">الرئيسية</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
-        </li>
+{{--        <li class="nav-item d-none d-sm-inline-block">--}}
+{{--            <a href="#" class="nav-link">Contact</a>--}}
+{{--        </li>--}}
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
+{{--    <form class="form-inline ml-3">--}}
+{{--        <div class="input-group input-group-sm">--}}
+{{--            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">--}}
+{{--            <div class="input-group-append">--}}
+{{--                <button class="btn btn-navbar" type="submit">--}}
+{{--                    <i class="fas fa-search"></i>--}}
+{{--                </button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </form>--}}
 
     <!-- Right navbar links -->
     <ul class="navbar-nav mr-auto-navbav">
@@ -55,8 +55,8 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-th-large"></i>
+            <a class="nav-link" href="{{url('/logout')}}" title="تسجيل الخروج">
+                <i class="fas fa-door-open"></i>
             </a>
         </li>
     </ul>

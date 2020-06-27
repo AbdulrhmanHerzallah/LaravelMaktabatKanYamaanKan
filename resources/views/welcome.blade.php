@@ -18,6 +18,7 @@
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
+
             }
 
             .full-height {
@@ -69,9 +70,10 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{route("index.index")}}">لوجة التحكم</a>
+                        <a href="{{url("/logout")}}">تسجيل الخروج</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ route('login') }}">تسجيل الدخول</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
@@ -80,12 +82,16 @@
                 </div>
             @endif
 
+
             <div class="content">
                 <div class="title m-b-md">
-                    LARAVEL
+{{--                    {{config('app.name' ,'laravel')}}--}}
+                    <img src="/logo/logo.png" width="250">
+{{--                    <p style="font-size: 40px">{{config('app.name' ,'laravel')}}</p>--}}
+
                 </div>
-<a href="{{asset('/app/PNG/01 - Laravel breadcrumbs.mp4')}}" download="01 - Laravel breadcrumbs.mp4">D</a>
-{{--                <div class="links">--}}
+
+                {{--                <div class="links">--}}
 {{--                    <a href="https://laravel.com/docs">Docs</a>--}}
 {{--                    <a href="https://laracasts.com">Laracasts</a>--}}
 {{--                    <a href="https://laravel-news.com">News</a>--}}

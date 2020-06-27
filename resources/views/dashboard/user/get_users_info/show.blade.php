@@ -17,7 +17,15 @@
 
 @section('content')
 
-    <div class="container mt-5">
+    <div class="container mt-2">
+
+            <div class="container mt-3">
+                <div class="content mt-2 mb-4">
+                    {{ Breadcrumbs::render('users_info') }}
+                </div>
+
+
+
         @if(Session::has('success'))
             <div class="alert alert-success" role="alert">
                 {{Session::get('success')}}
@@ -32,7 +40,7 @@
                     @endforeach
                 </div>
             @endif
-            <table class="table mt-3">
+            <table class="table mt-3" style="padding: 30px;">
                 <thead class="thead-dark">
                 <tr>
                     <th scope="col">إسم الموظف</th>

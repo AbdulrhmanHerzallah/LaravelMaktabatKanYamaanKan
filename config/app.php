@@ -178,6 +178,8 @@ return [
         Alkoumi\LaravelHijriDate\LaravelHijriDateServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
 
 
     ],
@@ -233,6 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Meneses\LaravelMpdf\Facades\LaravelMpdf::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
 
     ],
 

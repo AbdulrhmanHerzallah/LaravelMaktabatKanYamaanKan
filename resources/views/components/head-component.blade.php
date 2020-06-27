@@ -31,5 +31,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300&display=swap" rel="stylesheet">
 <style>body{font-family: 'Cairo', sans-serif;}</style>
 <title>{{ config('app.name', 'Laravel') }}</title>
+<style>
+
+    .os-viewport-native-scrollbars-invisible{
+        overflow-y: scroll;
+    }
+
+</style>
 @yield('style')
 @yield('head')

@@ -56,7 +56,7 @@ class BillController extends Controller
              ])]
             );
         }
-        return response()->json(['success' => __('messages.success_bill_save')]);
+            return response()->json(['success' => __('messages.success_bill_save')]);
     }
 
     public function print_bill(PrintPdfRequest $request)

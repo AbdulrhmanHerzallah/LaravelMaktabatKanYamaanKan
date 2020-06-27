@@ -151,19 +151,19 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('bill.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-plus"></i>
                                 <p>{{__('layout.create_new_bill')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bill.showMyBill')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-money-bill"></i>
                                 <p>الفواتير التي أنشأتها</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bill.all_bills_admin')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-money-bill-alt"></i>
                                 <p>جميع الفواتير</p>
                             </a>
                         </li>

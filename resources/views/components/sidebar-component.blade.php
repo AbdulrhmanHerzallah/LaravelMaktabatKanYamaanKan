@@ -156,15 +156,15 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
+                            <a href="{{route('bill.showMyBill')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>{{__('layout.create_new_clint')}}</p>
+                                <p>الفواتير التي أنشأتها</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/charts/inline.html" class="nav-link">
+                            <a href="{{route('bill.all_bills_admin')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Inline</p>
+                                <p>جميع الفواتير</p>
                             </a>
                         </li>
                     </ul>

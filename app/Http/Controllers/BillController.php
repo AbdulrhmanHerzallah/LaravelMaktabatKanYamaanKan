@@ -99,4 +99,61 @@ class BillController extends Controller
         }
         return "<script>window.close()</script>";
     }
+
+    public function showMyBill()
+    {
+        $user = User::find(auth()->id());
+        $bills = $user->bills()->paginate(10);
+        return view('dashboard.bill.my-bill.show' , compact('bills'));
+    }
+
+
+    public function showAllBillByAdmin()
+    {
+        $bills = Bill::paginate(10);
+        return view('dashboard.bill.all-bills-admin.show' , compact('bills'));
+    }
+
+
+    public function showBillStream($id)
+    {
+        $bill = Bill::find($id);
+        if ($bill)
+        {
+            $products = $bill->products;
+
+            $prices = [];
+            foreach ($products as $i) {
+                $prices[] = ( $i->price -  ($i->price * ($i->dis_account / 100))) * $i->quantity;
+
+//                    ($i->price + $i->dis_account) * $i->quantity;
+            }
+
+            $total_prices = array_sum($prices);
+            $vatDecimal = (float)($bill->tax / 100);
+            $total_tax = $total_prices + $total_prices * $vatDecimal;
+
+            $date = $bill->created_at;
+            $hijri = \Alkoumi\LaravelHijriDate\Hijri::DateMediumFormat('en', $date);
+
+            $data = ['data' => [
+                'data' => $bill->products,
+                'total_prices' => array_sum($prices),
+                'total_tax' => $total_tax,
+                'bill_type' => $bill->bill_type,
+                'tax' => $bill->tax,
+                'total_tax_expend' => array_sum($prices) * ($bill->tax/100),
+                'date' => $hijri,
+                'bill_number' => $bill->bill_number,
+                'clint_name' => $bill->clint_name,
+                'clint_phone' => $bill->clint_phone,
+                'clint_address' => $bill->clint_address
+            ]];
+            $pdf = PDF::loadView('pdf.bill', $data);
+            return $pdf->stream($bill->bill_number.'.pdf');
+        }
+        return "<script>window.close()</script>";
+    }
+
+
 }

@@ -69,3 +69,13 @@ Breadcrumbs::for('account_settings' , function ($trail) {
     $trail->parent('dashboard');
     $trail->push(__('layout.update_my_settings') , route('user.edit_account_sett'));
 });
+
+Breadcrumbs::for('my_bills' , function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(__('layout.my_bills') , route('bill.showMyBill'));
+});
+
+Breadcrumbs::for('all_bills_admin' , function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(__('layout.all_users_create_bills') , route('bill.all_bills_admin'));
+});

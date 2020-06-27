@@ -39,6 +39,8 @@ return [
     'tax_number_company' => '310575536100003',
     'create_user_by_admin' => 'إنشاء مستخدم جديد',
     'users_info' => 'معلومات المستخدمين',
-    'update_my_settings' => 'تحديث معلوماتي الشخصية'
+    'update_my_settings' => 'تحديث معلوماتي الشخصية',
+    'my_bills' => 'الفواتير التي أنشأتها',
+    'all_users_create_bills' => 'جميع الفواتير التي انشأها الموظفين'
 
 ];

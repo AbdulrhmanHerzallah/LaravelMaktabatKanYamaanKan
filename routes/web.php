@@ -40,7 +40,10 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
     Route::group(['prefix' => 'bill'] , function (){
         Route::get('/create' , ['as' => 'bill.create' , 'uses' => 'BillController@create']);
         Route::post('/store' , ['as' => 'bill.store' , 'uses' => 'BillController@store']);
-        Route::post('/print_bill' , ['as' => 'bill.print_bill' , 'uses' => 'BillController@print_bill']);
+        Route::post('/print-bill' , ['as' => 'bill.print_bill' , 'uses' => 'BillController@print_bill']);
+        Route::get('/my-bill/show' , ['as' => 'bill.showMyBill' , 'uses' => 'BillController@showMyBill']);
+        Route::get('/all-bills/show' , ['as' => 'bill.all_bills_admin' , 'uses' => 'BillController@showAllBillByAdmin']);
+        Route::get('/show-bill-stream/{id}' , ['as' => 'bill.showBillStream' , 'uses' => 'BillController@showBillStream']);
     });
 
 

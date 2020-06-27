@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function bills()
     {
-        return $this->hasMany(Bill::class);
+        return $this->hasMany(Bill::class)->orderBy('id' , 'DESC');
     }
 
     public function files()
@@ -87,10 +87,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Event::class)->withTimestamps();
     }
-
-
-
-
 
 
 }

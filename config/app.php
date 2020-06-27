@@ -176,7 +176,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Alkoumi\LaravelHijriDate\LaravelHijriDateServiceProvider::class,
+
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+
         Barryvdh\Debugbar\ServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 

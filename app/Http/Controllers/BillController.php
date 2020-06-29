@@ -20,12 +20,12 @@ class BillController extends Controller
 
     public function create()
     {
-       $rand_number = 'kmk'.mt_rand(1000000,9999999);
+       $rand_number = 'KYK'.mt_rand(1000000,9999999);
        $bill_number = Bill::where('bill_number' , '=' , $rand_number)->first();
 
        if ($bill_number)
        {
-           $rand_number = 'kmk'.mt_rand(1000000,9999999);
+           $rand_number = 'KYK'.mt_rand(1000000,9999999);
        }
         return view('dashboard.bill.create' , compact('rand_number'));
     }
@@ -103,7 +103,18 @@ class BillController extends Controller
     public function showMyBill()
     {
         $user = User::find(auth()->id());
-        $bills = $user->bills()->paginate(10);
+         $bills = $user->bills()->paginate(10);
+
+         $data = [];
+        foreach ($bills as $i){
+            $data[] = $i->id;
+        }
+
+        if (!$data)
+        {
+            alert()->info('لا يوجد فواتير','عزيزي المستخدم لم تقم بأنشاء اي فاتورة من قبل.');
+        }
+
         return view('dashboard.bill.my-bill.show' , compact('bills'));
     }
 
@@ -111,6 +122,17 @@ class BillController extends Controller
     public function showAllBillByAdmin()
     {
         $bills = Bill::paginate(10);
+
+        $data = [];
+        foreach ($bills as $i){
+            $data[] = $i->id;
+        }
+
+        if (!$data)
+        {
+            alert()->info('لا يوجد فواتير','قاعدة البينات فارغة من الفواتير.');
+        }
+
         return view('dashboard.bill.all-bills-admin.show' , compact('bills'));
     }
 
@@ -118,6 +140,7 @@ class BillController extends Controller
     public function showBillStream($id)
     {
         $bill = Bill::find($id);
+
         if ($bill)
         {
             $products = $bill->products;

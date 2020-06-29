@@ -52,16 +52,21 @@ class LetterController extends Controller
 
     public function show()
     {
-        $latter = Letter::orderBy('created_at', 'desc')->select(['id' , 'title' , 'created_at'])->where('user_id' , '=' , auth()->id())->paginate(5);
+//        $latter = Letter::orderBy('created_at', 'desc')->select(['id' , 'title' , 'created_at'])->where('user_id' , '=' , auth()->id())->paginate(5);
+
+        $user = User::find(auth()->id());
+        $latter = $user->letters()->paginate(5);
 
         return view('dashboard.letter.show' , ['latter' => $latter]);
     }
 
     public function show_admin()
     {
-        $latter = Letter::orderBy('created_at', 'desc')->select(['id' , 'title' , 'created_at'])->paginate(5);
+        $latter = Letter::orderBy('created_at', 'desc')->select('*')->paginate(5);
 
-        return view('dashboard.letter.show' , ['latter' => $latter]);
+//        return $latter;
+
+        return view('dashboard.letter.show-all-admin.show' , ['latter' => $latter]);
     }
 
     public function download($id)

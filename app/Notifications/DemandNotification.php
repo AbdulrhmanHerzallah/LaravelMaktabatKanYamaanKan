@@ -11,14 +11,20 @@ class DemandNotification extends Notification
 {
     use Queueable;
 
+    public $title;
+    public $sender;
+    public $demand_id;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($title , $sender , $demand_id)
     {
-        //
+        $this->title = $title;
+        $this->sender = $sender;
+        $this->demand_id = $demand_id;
     }
 
     /**
@@ -37,7 +43,9 @@ class DemandNotification extends Notification
     public function toDatabase()
     {
         return [
-            'test' => 'go go go'
+            'title' => $this->title,
+            'sender_name' => $this->sender,
+            'demand_id'   => $this->demand_id
         ];
     }
 

@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="container mt-4">
+        <div class="content mt-2">
+            {{ Breadcrumbs::render('show_my_latters') }}
+        </div>
+
         <table class="table table-dark">
             <thead>
             <tr>
@@ -16,7 +20,7 @@
                 <td>{{$i->title}}</td>
                 <td>{{$i->created_at->diffForHumans()}}</td>
                 <td>
-                    <a href="{{route('letter.download' , ['id' => $i->id])}}" class="btn btn-outline-primary"><i class="fas fa-download"></i></a>
+                    <a href="{{route('letter.download' , ['id' => $i->id])}}" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
                 </td>
             </tr>
             @endforeach

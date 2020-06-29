@@ -33,16 +33,20 @@
 
 @section('content')
 
-
-
-    <div class="container mt-5">
-
+    <div class="container mt-2">
+        <div class="container mt-2">
+            <div class="content mt-2 mb-4">
+                {{ Breadcrumbs::render('all_files_admin') }}
+            </div>
+        </div>
     <table id="customers">
         <tr>
             <th>إسم الملف</th>
             <th>نوع الامتداد</th>
             <th>الحجم علي القرص</th>
             <th>الصلاحية عام/خاص</th>
+            <th>صاحب الملف</th>
+            <th>التصنيف</th>
             <th>المدة</th>
             <th></th>
         </tr>
@@ -58,12 +62,14 @@
                         عام
                     @endif
                 </td>
+                <td>{{\App\Models\User::find($item->user_id)->name ?? ''}}</td>
+                <td>{{\App\Models\FileCategorie::find($item->cat_id)->category_name ?? ''}}</td>
                 <td>{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}</td>
 
                 <td>
                     <a href="{{route('my-go-file.download' , ['id' => $item->id])}}" class="btn btn-outline-primary font-weight-bold"><i class="fas fa-download"></i></a>
-                    <a href="#" class="btn btn-outline-dark font-weight-bold mt-1"><i class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-outline-danger font-weight-bold mt-1" data-toggle="modal" data-target="#myModal"><i class="fas fa-trash"></i></a>
+{{--                    <a href="#" class="btn btn-outline-dark font-weight-bold mt-1"><i class="fas fa-edit"></i></a>--}}
+{{--                    <a href="#" class="btn btn-outline-danger font-weight-bold mt-1" data-toggle="modal" data-target="#myModal"><i class="fas fa-trash"></i></a>--}}
                 </td>
             </tr>
         @endforeach

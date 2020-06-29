@@ -12,8 +12,8 @@
                     <div class="row d-flex justify-content-center border border-info p-5 mb-5">
                         <div class="col-lg-5">
                             <div>
-                                <input type="file" class="d-none" id="file" name="file[]" multiple>
-                                <label id="file_click" class="btn btn-outline-dark w-100 pt-1 pb-1" for="file">إرفاق
+                                <input @if($enable) disabled  @endif type="file" class="d-none" id="file" name="file[]" multiple>
+                                <label id="file_click" class="btn btn-outline-dark w-100 pt-1 pb-1 @if($enable) disabled  @endif  " for="file">إرفاق
                                     ملفات</label>
 
                                 <div class="d-flex justify-content-around">
@@ -27,7 +27,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">التصنيفات</label>
-                                    <select name="cat" class="form-control" id="exampleFormControlSelect1">
+                                    <select name="cat_id" class="form-control" id="exampleFormControlSelect1">
                                         @foreach($file_cat as $cat)
                                             <option value="{{$cat->id}}">{{$cat->category_name}}</option>
                                         @endforeach

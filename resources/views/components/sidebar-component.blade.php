@@ -180,19 +180,19 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('letter.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-text-width"></i>
                                 <p>{{__('layout.create_new_letter')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('letter.show')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-align-right"></i>
                                 <p>الخطابات التي انشأتها</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('letter.show_admin')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-align-center"></i>
                                 <p>جميع خطابات الموظفين</p>
                             </a>
                         </li>
@@ -239,31 +239,31 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('file.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-upload nav-icon"></i>
                                 <p>{{__('layout.upload')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('my-files.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fas fa-file-import nav-icon"></i>
                                 <p>{{__('layout.my_file')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('public.file.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fas fa-cloud-download-alt nav-icon"></i>
                                 <p>{{__('layout.public_file')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('file_cat.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-tasks nav-icon"></i>
                                 <p>{{__('layout.file_cat')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('admin.file.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-save nav-icon"></i>
                                 <p>{{__('layout.all_files')}}</p>
                             </a>
                         </li>
@@ -281,22 +281,39 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('demand.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-envelope nav-icon"></i>
                                 <p>{{__('layout.create_demand')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('demand.create_admin')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-envelope-square nav-icon"></i>
                                 <p>{{__('layout.create_admin_demand')}}</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="pages/tables/jsgrid.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>jsGrid</p>
+                            <a href="{{route('demand.show-inbox-demand')}}" class="nav-link">
+                                <i class="fas fa-inbox nav-icon"></i>
+                                <p>الصندوق الوارد</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('demand.show-my-demand')}}" class="nav-link">
+                                <i class="fas fa-reply-all nav-icon"></i>
+                                <p>جميع الطالبات التي ارسلتها</p>
+                            </a>
+                        </li>
+
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="pages/tables/jsgrid.html" class="nav-link">--}}
+{{--                                <i class="fas fa-sticky-note nav-icon"></i>--}}
+{{--                                <p>جميع طالبات الاعضاء</p>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+
+
                     </ul>
                 </li>
 

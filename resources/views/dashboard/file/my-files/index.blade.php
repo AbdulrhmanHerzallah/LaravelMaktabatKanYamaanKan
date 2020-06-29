@@ -11,45 +11,30 @@
             {{ Breadcrumbs::render('my_files') }}
         </div>
     </div>
+
+
+
     <div class="container">
-        <div class="row mb-3">
 
-            <div class="col-lg-6 d-flex justify-content-center">
-                <form action="" method="">
-                    @csrf
-                    <div class="row">
-                        <div class="col-lg-5">
-                            <select name="id" class="form-control mt-2 mb-2">
-                                @foreach($file_categorie_id as $id)
-                                    <option value="{{$id->id}}">{{$id->category_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-lg-7">
-                            <button class="btn btn-outline-primary d-inline mt-2 mb-2" type="submit" ><i class="fab fa-searchengin"></i> حسب التصنيف</button>
-
-                        </div>
-                    </div>
-                </form>
+        <form action="{{route('file.search_file_cat')}}" method="post">
+            @csrf
+            <div class="form-group">
+                <label for="cat">ترتيب الملفات حسب التصنيف</label>
+                <div class="form-group">
+                    <select name="cat_id" class="form-control col-6 d-inline-block" id="cat">
+                        @foreach($filesCategorie as $item)
+                            <option value="{{$item->id}}">{{$item->category_name}}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-outline-primary mb-2" style="font-size: 12px"><i class="fas fa-search"></i></button>
+                </div>
             </div>
+        </form>
 
-            <div class="col-lg-6 d-flex justify-content-center">
-                <form action="" method="">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <input class="form-control mt-2 mb-2" type="text"  placeholder="بحث عن ملف">
-                        </div>
-                        <div class="col-lg-3">
-                            <button type="submit" class="btn btn-outline-primary mt-2 mb-2"><i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-        </div>
 
         <table class="table table-dark">
+            <a href="{{route('my-files.index')}}" class="btn btn-outline-primary mb-2" style="font-size: 12px">جميع الملفات</a>
+
             <thead>
             <tr>
                 <th scope="col">إسم الملف</th>
@@ -57,6 +42,7 @@
                 <th scope="col">الحجم علي القرص</th>
                 <th scope="col">الحالة عام/خصاص</th>
                 <th scope="col">المدة</th>
+                <th scope="col">التصنيف</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -74,11 +60,11 @@
                         @endif
                     </td>
                     <td>{{$item->created_at->diffForhumans()}}</td>
-{{--                    <td>{{\App\Models\FileCategorie::find($item->cat_id)->category_name}}</td>--}}
+                    <td>{{\App\Models\FileCategorie::find($item->cat_id)->category_name ?? ''}}</td>
                     <td>
-                        <a href="{{route('my-go-file.download' , ['id' => $item->id])}}" class="btn btn-outline-primary font-weight-bold"><i class="fas fa-download"></i></a>
-                        <button type="button" data-toggle="modal" data-target="#update" data-id="{{$item->id}}" data-name="{{$item->original_name}}" data-power="{{$item->power}}" class="btn btn-outline-light font-weight-bold mt-1"><i class="fas fa-edit"></i></button>
-                        <button type="button" data-id="{{$item->id}}" data-name="{{$item->original_name}}" data-toggle="modal" data-target="#delete_file" class="btn btn-outline-danger font-weight-bold mt-1"><i class="fas fa-trash"></i></button>
+                        <a href="{{route('my-go-file.download' , ['id' => $item->id])}}" class="btn btn-outline-primary font-weight-bold mt-1"><i class="fas fa-download"></i></a>
+                        <button type="button" data-toggle="modal" data-target="#update" data-id="{{$item->id}}" data-name="{{$item->original_name}}" data-cat="{{$item->cat_id}}" data-power="{{$item->power}}" class="btn btn-outline-light font-weight-bold mt-1"><i class="fas fa-edit"></i></button>
+                        <button type="button" data-id="{{$item->id}}" data-name="{{$item->original_name}}" data-cat="{{$item->cat_id}}" data-toggle="modal" data-target="#delete_file" class="btn btn-outline-danger font-weight-bold mt-1"><i class="fas fa-trash"></i></button>
                     </td>
                 </tr>
             @endforeach
@@ -124,23 +110,31 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        هل تريد فعلاََ تعديل الصلاحية؟
+                        هل تريد فعلاََ تعديل خصائص الملف؟
                     </div>
-                    <form action="{{route('my-go-file.del')}}" method="post">
+                    <form action="{{route('my-go-file.update')}}" style="padding: 20px" method="post">
                         @csrf
-                        <select  id="id" name="id">
-                            @foreach($file_categorie_id as $item)
-                            <option value="{{$item->id}}">{{$item->category_name}}</option>
-                            @endforeach
-                        </select>
+                        <input type="hidden" id="id" name="id">
 
-                        <select  id="id" name="id">
-                                <option selected value="1">خاص</option>
-                                <option value="2">عام</option>
-                        </select>
+                        <div class="form-group">
+                            <label for="cat">التصنيف</label>
+                            <select name="file_cat" class="form-control" id="cat">
+                                @foreach($filesCategorie as $item)
+                                    <option id="cat_{{$item->id}}" value="{{$item->id}}">{{$item->category_name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="power">الصلاحية</label>
+                            <select name="power" class="form-control" id="power">
+                                <option id="power_1" value="1">خاص</option>
+                                <option id="power_2" value="2">عام</option>
+                            </select>
+                        </div>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">حذف</button>
+                            <button type="submit" class="btn btn-info">تعديل</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
                         </div>
                     </form>
@@ -170,11 +164,15 @@
         var button = $(event.relatedTarget) // Button that triggered the modal
         var id = button.data('id') // Extract info from data-* attributes
         var name = button.data('name') // Extract info from data-* attributes
+        var cat = button.data('cat') // Extract info from data-* attributes
+        var power = button.data('power') // Extract info from data-* attributes
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this)
-        // modal.find('#title').text(name)
-        // modal.find('#id').val(id)
+        modal.find('#title').text(name)
+        modal.find('#id').val(id)
+        modal.find(`#cat_${cat}`).attr('selected' , true);
+        modal.find(`#power_${power}`).attr('selected' , true);
     })
 </script>
 @endsection

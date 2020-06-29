@@ -64,6 +64,9 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
             Route::post('/' , ['as' => 'my-files.download' , 'uses' => 'FilesDownloadController@myFile']);
             Route::get('/download/{id}' , ['as' => 'my-go-file.download' , 'uses' => 'FilesDownloadController@download']);
             Route::post('/del-file' , ['as' => 'my-go-file.del' , 'uses' => 'FilesDownloadController@delete_file']);
+            Route::post('/update-file' , ['as' => 'my-go-file.update' , 'uses' => 'FilesDownloadController@updateFile']);
+            Route::post('/search-file-my-cat' , ['as' => 'file.search_file_cat' , 'uses' => 'FilesDownloadController@search_file_cat']);
+            Route::post('/search-common-files' , ['as' => 'file.search_common_files_cat' , 'uses' => 'FilesCommonController@search_common_files_cat']);
         });
 
         Route::group(['prefix' => 'get-common-files'] , function (){
@@ -77,6 +80,9 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
        Route::get('/admin-create' , ['as' => 'demand.create_admin' , 'uses' => 'DemandController@create_admin']);
        Route::post('/admin-store' , ['as' => 'demand.store_admin' , 'uses' => 'DemandController@store_admin']);
        Route::post('/store' , ['as' => 'demand.store' , 'uses' => 'DemandController@store']);
+       Route::get('/show-all-my-demand' , ['as' => 'demand.show-my-demand' , 'uses' => 'DemandController@showAllMyMessages']);
+       Route::get('/show-inbox-demand' , ['as' => 'demand.show-inbox-demand' , 'uses' => 'DemandController@showInboxMessages']);
+       Route::get('/show-single-demand/{id_not}/{id_d}' , ['as' => 'demand.show-single-demand' , 'uses' => 'DemandController@showSingleMessages']);
     });
 
     Route::group(['prefix' => 'event' , 'namespace' => 'Event'] , function (){

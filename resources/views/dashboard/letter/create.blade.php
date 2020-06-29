@@ -3,7 +3,12 @@
 @section('content')
 <div class="container mt-4">
 
-<form action="{{route('letter.store')}}" method="post">
+
+    <div class="content mt-2">
+        {{ Breadcrumbs::render('create_latter') }}
+    </div>
+
+<form target="_blank" action="{{route('letter.store')}}" method="post">
     @csrf
 
     <label for="title">{{__('layout.title')}}</label>
@@ -17,8 +22,8 @@
 
     @enderror
     <textarea name="body" id="compose-textarea" class="form-control" style="height: 900px;z-index: 90"></textarea>
-    <button type="submit" name="save_and_create" class="btn btn-primary btn-sm mb-4">{{__('layout.save_create_new_letter')}}</button>
-    <input type="submit" name="just_create" value="{{__('layout.just_create_new_letter')}}" class="btn btn-outline-dark btn-sm mb-4">
+    <button type="submit" name="save_and_create" class="btn btn-primary btn-sm mb-4">إنشاء خطاب</button>
+{{--    <input type="submit" name="just_create" value="{{__('layout.just_create_new_letter')}}" class="btn btn-outline-dark btn-sm mb-4">--}}
    </form>
 </div>
 </div>

@@ -42,20 +42,21 @@
 <div>
     <div style="float: right; width: 40%;">
 
-   <img src="{{public_path('/logo/logo.png')}}" width="170">
+   <img src="{{storage_path('/logo/logo.png')}}" width="170">
 
 </div>
     <div style="float: left; width: 35%;margin-top: 30pt">
         <br><br><br>
         <div>
             <div style="margin-top: 10px">
-                <span style="font-weight: bold">{{__('pdf.address')}}</span>  Gaza Strip
+                <span style="font-weight: bold">{{__('pdf.address')}}</span>  طريق أبو بكر الصديق - حي الربيع
+                الرياض، المملكة العربية السعودية
             </div>
             <div style="margin-top: 10px">
-                <span style="font-weight: bold">{{__('pdf.phone_contact')}}</span>00972598304517
+                <span style="font-weight: bold">{{__('pdf.phone_contact')}}</span>966554063391+
             </div>
             <div style="margin-top: 10px">
-                <span style="font-weight: bold">{{__('pdf.site')}}</span>{{asset('')}}
+                <span style="font-weight: bold">{{__('pdf.site')}}</span><a href="https://www.kykbs.com/" style="text-decoration: none;color: black">https://www.kykbs.com</a>
             </div>
         </div>
     </div>
@@ -133,12 +134,44 @@
     <div style="float: left; width: 30%;">
         <div>
             <p><span style="font-weight: bold">{{__('pdf.date')}}</span>{{$data['date']}}</p>
-            <p><span style="font-weight: bold">{{__('pdf.responsible_name')}}</span> عبدالرحمن القاضي </p>
-            <p><span style="font-weight: bold">{{__('pdf.name_of_the_billing_author')}}</span>{{auth()->user()['name']}}</p>
-            <p><span style="font-weight: bold">{{__('pdf.job')}}</span> مدير مكتب</p>
+            <p><span style="font-weight: bold">مصدر الفاتورة:</span> {{auth()->user()['name']}} </p>
+{{--            <p><span style="font-weight: bold">{{__('pdf.name_of_the_billing_author')}}</span>{{auth()->user()['name']}}</p>--}}
+{{--            <p><span style="font-weight: bold">{{__('pdf.job')}}</span>--}}
+
+{{--                @switch(auth()->user()['permission'])--}}
+{{--                    @case(1)--}}
+{{--                    مدير عام--}}
+{{--                    @break--}}
+{{--                    @case(2)--}}
+{{--                    مدير فرع--}}
+{{--                    @break--}}
+{{--                    @case(3)--}}
+{{--                    أمينة مكتبة--}}
+{{--                    @break--}}
+{{--                    @case(4)--}}
+{{--                    موظف إدارة مالية--}}
+{{--                    @break--}}
+{{--                    @case(5)--}}
+{{--                    مسؤول التواصل--}}
+{{--                    @break--}}
+{{--                    @case(6)--}}
+{{--                    موظف إدارة التسويق--}}
+{{--                    @break--}}
+{{--                    @case(7)--}}
+{{--                    مدير التسويق--}}
+{{--                    @break--}}
+{{--                    @case(8)--}}
+{{--                    متعاون/متدرب--}}
+{{--                    @break--}}
+{{--                    @case(9)--}}
+{{--                    متطوع--}}
+{{--                    @break--}}
+{{--                    @default--}}
+{{--                @endswitch--}}
+{{--            </p>--}}
         </div>
         <div style="float: right;width: 80px">
-            <img src="{{public_path('sine/sine.png')}}" width="100">
+            <img src="{{storage_path('sine/sine.png')}}" width="100">
         </div>
     </div>
 

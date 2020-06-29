@@ -47,9 +47,9 @@
                     <label for="bill_type">نوع الفاتورة</label>
                     <select name="bill_type" class="form-control" id="bill_type">
                         <option selected value="">حدد نوع الفاتورة</option>
-                        <option value="فاتورة AK">فاتورة AK</option>
+                        <option value="فاتورة AK">فاتورة</option>
                         <option value="عرض سعر">عرض سعر</option>
-                        <option value="سند قبض">سند قبض</option>
+                        <option value="سند قبض">سند قيض</option>
                     </select>
                 </div>
             </div>

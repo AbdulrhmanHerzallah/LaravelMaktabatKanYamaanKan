@@ -27,6 +27,10 @@
 <body>
 
 <div class="container" style="color: black">
+    <br>
+    <br>
+    <br>
+    <br>
     <p style="font-weight: bold;margin-right: 50px;font-size: 20px">عنوان الطلب : <span style="font-weight: normal;text-decoration: underline">{{$data['demand']['title']}}</span></p>
     <p style="font-weight: bold;margin-right: 50px;font-size: 20px">الاهمية : <span style="font-weight: normal;text-decoration: underline">
             @switch($data['demand']['status'])
@@ -41,13 +45,15 @@
             @endswitch
         </span>
     </p>
-    <div style="text-align: right;padding: 10px;padding-bottom: 30px;margin-left: 60px;font-size: 15px">{{$data['demand']['body']}}</div>
+    <br>
+    <br>
+    <div style="text-align: right;padding: 10px;padding-bottom: 30px;margin-left: 60px;font-size: 15px">{!!$data['demand']['body']!!}</div>
 </div>
 
 
-<div style="font-weight: bold">{{$data['user_name'].' : '}}مرسل الطلب</div>
-<div style="font-weight: bold">{{\Carbon\Carbon::now()->format('Y-m-d').' : '}}تاريخ الطلب</div>
-<div style="font-weight: bold">{{asset('').' : '}}عنوان الموقع الالكتروني</div>
+<div style="font-weight: bold">مرسل الطلب:{{$data['user_name']}}</div>
+<div style="font-weight: bold">تاريخ الطلب:{{\Carbon\Carbon::now()->format('Y-m-d')}}</div>
+<div style="font-weight: bold">عنوان الموقع الالكتروني:{{url('/')}}</div>
 
 </body>
 </html>

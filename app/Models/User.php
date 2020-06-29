@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public function letters()
     {
-        return $this->hasMany(Letter::class);
+        return $this->hasMany(Letter::class)->orderBy('id' , 'DESC');
     }
 
     public function bills()
@@ -61,13 +61,19 @@ class User extends Authenticatable
 
     public function files()
     {
-        return $this->hasMany(File::class);
+        return $this->hasMany(File::class)->orderBy('id' , 'DESC');
+    }
+
+
+    public function my_demands()
+    {
+        return $this->hasMany(Demand::class)->orderBy('id' , 'DESC');
     }
 
 
     public function demands()
     {
-        return $this->belongsToMany(Demand::class)->withTimestamps();
+        return $this->belongsToMany(Demand::class)->withTimestamps()->orderBy('id' , 'DESC');
     }
 
 

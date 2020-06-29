@@ -7,7 +7,15 @@
         <div class="content mt-2">
             {{ Breadcrumbs::render('create_demand') }}
         </div>
+        @if($errors->any())
+            {{--        @foreach ($errors->all() as $error)--}}
+            {{--            <div>{{ $error }}</div>--}}
+            <div class="alert alert-danger" role="alert">
+                يوجد خطأ في المدخلات!
+            </div>
 
+            {{--        @endforeach--}}
+        @endif
         <div class="row d-flex justify-content-center mt-4 mb-3">
             <div class="col-9">
                 <form action="{{route('demand.store_admin')}}" method="post">
@@ -24,7 +32,7 @@
 
                     <div class="form-group">
                         <label for="body">تفاصيل الطلب</label>
-                        <textarea class="form-control @error('body') is-invalid @enderror" id="body" name="body">{{old('body')}}</textarea>
+                        <textarea id="compose-textarea"  style="height: 900px;z-index: 90" class="form-control @error('body') is-invalid @enderror" id="body" name="body">{{old('body')}}</textarea>
                     </div>
 
                     <div class="form-group">
@@ -43,4 +51,16 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ar-AR.min.js" integrity="sha256-rH047tiLgw9l5v/KBXIwdarKNUl8qNA//GpULoiys8E=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            //Add text editor
+            $('#compose-textarea').summernote({
+                lang : "ar-AR",
+                height: 300,
+            })
+        })
+    </script>
 @endsection

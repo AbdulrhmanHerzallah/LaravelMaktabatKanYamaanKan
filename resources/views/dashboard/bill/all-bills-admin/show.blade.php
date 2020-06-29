@@ -43,6 +43,13 @@
             @endforeach
             </tbody>
         </table>
+
+        @if(Session::has('empty'))
+            <div class="alert alert-warning" role="alert">
+                {{Session::get('empty')}}
+            </div>
+        @endif
+
         <div class="d-flex justify-content-center">
             {!! $bills->links() !!}
         </div>

@@ -18,6 +18,11 @@ class CreateDemandsTable extends Migration
 
             $table->string('title');
             $table->longText('body');
+
+            $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade');
+
             $table->enum('status' , ['h' , 'n']);
 
             $table->timestamps();

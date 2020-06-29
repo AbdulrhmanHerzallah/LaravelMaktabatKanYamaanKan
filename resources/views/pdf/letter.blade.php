@@ -9,7 +9,7 @@
 </head>
 <style>
     body{
-        font-size: 12px;
+        font-size: 11px;
     }
     table {
         /*font-family: arial, sans-serif;*/
@@ -42,7 +42,7 @@
 <div>
     <div style="float: right; width: 40%;">
 
-        <img src="{{public_path('/logo/logo.png')}}" width="170">
+        <img src="{{storage_path('/logo/logo.png')}}" width="170">
 
     </div>
 
@@ -50,13 +50,14 @@
         <br><br><br>
         <div>
             <div style="margin-top: 10px">
-                <span style="font-weight: bold">{{__('pdf.address')}}</span>  Gaza Strip
+                <span style="font-weight: bold">{{__('pdf.address')}}</span>  طريق أبو بكر الصديق - حي الربيع
+                الرياض، المملكة العربية السعودية
             </div>
             <div style="margin-top: 10px">
-                <span style="font-weight: bold">{{__('pdf.phone_contact')}}</span>00972598304517
+                <span style="font-weight: bold">{{__('pdf.phone_contact')}}</span>966554063391+
             </div>
             <div style="margin-top: 10px">
-                <span style="font-weight: bold">{{__('pdf.site')}}</span>{{asset('')}}
+                <span style="font-weight: bold">{{__('pdf.site')}}</span><a href="https://www.kykbs.com/" style="text-decoration: none;color: black">https://www.kykbs.com</a>
             </div>
         </div>
     </div>
@@ -82,14 +83,51 @@
 
 
 
-<div style="float: left;">
-    <span style="font-weight: bold">التاريخ :  </span>{{$data['hijri'] ?? 'f'}}
-    <p><span style="font-weight: bold">إسم المسؤول :</span> Sniper Herzallah </p>
-    <p><span style="font-weight: bold">الوظيفة :</span>  مدير مكتب</p>
+
+<div>
+    <div style="float: left;width: 30%">
+        <span style="font-weight: bold">التاريخ :  </span>{{$data['hijri'] ?? 'f'}}
+        <br>
+        <br>
+        <br>
+{{--        <p><span style="font-weight: bold">إسم المسؤول :</span> {{auth()->user()['name']}}  </p>--}}
+{{--        <p><span style="font-weight: bold">الوظيفة :</span>--}}
+{{--            @switch(auth()->user()['permission'])--}}
+{{--                @case(1)--}}
+{{--                مدير عام--}}
+{{--                @break--}}
+{{--                @case(2)--}}
+{{--                مدير فرع--}}
+{{--                @break--}}
+{{--                @case(3)--}}
+{{--                أمينة مكتبة--}}
+{{--                @break--}}
+{{--                @case(4)--}}
+{{--                موظف إدارة مالية--}}
+{{--                @break--}}
+{{--                @case(5)--}}
+{{--                مسؤول التواصل--}}
+{{--                @break--}}
+{{--                @case(6)--}}
+{{--                موظف إدارة التسويق--}}
+{{--                @break--}}
+{{--                @case(7)--}}
+{{--                مدير التسويق--}}
+{{--                @break--}}
+{{--                @case(8)--}}
+{{--                متعاون/متدرب--}}
+{{--                @break--}}
+{{--                @case(9)--}}
+{{--                متطوع--}}
+{{--                @break--}}
+{{--                @default--}}
+{{--            @endswitch--}}
+{{--        </p>--}}
+        <img src="{{storage_path('sine/sine.png')}}" width="100">
+    </div>
+
 </div>
-<div style="float: left;margin-left: 30px;margin-top: 10px">
-    <img src="{{public_path('sine/sine.png')}}" width="100">
-</div>
+
 
 </body>
 </html>

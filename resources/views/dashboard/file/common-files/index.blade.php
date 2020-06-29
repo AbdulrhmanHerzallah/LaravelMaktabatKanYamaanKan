@@ -43,32 +43,26 @@
 
         <div class="row mb-2">
             <div class="col-lg-6 mt-2">
-                <form class="d-flex justify-content-center">
-                    <select class="pb-1 col-6 form-control d-inline-block">
-                        <option>التصنيف الاول</option>
-                        <option>التصنيف الثاني</option>
-                        <option>التصنيف الثالث</option>
+                <form action="{{route('file.search_common_files_cat')}}" method="post" class="d-flex justify-content-center">
+                @csrf
+                    <select name="cat_id" class="pb-1 col-7 form-control d-inline-block">
+                        @foreach($filesCategorie as $i)
+                            <option value="{{$i->id}}">{{$i->category_name}}</option>
+                        @endforeach
                     </select>
                     <button type="submit" class="btn btn-outline-primary mr-2"><i class="fas fa-search"></i></button>
                 </form>
             </div>
-
-            <div class="col-lg-6 mt-2">
-                <input type="text" class="form-control d-inline-block pt-1 col-8" placeholder="ابحث عن الملف">
-                <button class="btn btn-outline-primary"><i class="fas fa-search"></i></button>
-            </div>
-
-
-
         </div>
 
-
-
-        <table id="customers">
+    <a class="btn btn-outline-primary" href="{{route('public.file.index')}}" style="font-size: 12px">جميع الملفات</a>
+        <table id="customers" class="mt-2">
             <tr>
                 <th>إسم الملف</th>
                 <th>نوع الامتداد</th>
                 <th>الحجم علي القرص</th>
+                <th>صاحب الملف</th>
+                <th>التصنيف</th>
                 <th>المدة</th>
                 <th></th>
             </tr>
@@ -77,6 +71,8 @@
                     <td>{{$item->original_name}}</td>
                     <td>{{$item->file_ext}}</td>
                     <td>{{'byte '.$item->size}}</td>
+                    <td>{{\App\Models\User::find($item->user_id)->name ?? ''}}</td>
+                    <td>{{\App\Models\FileCategorie::find($item->cat_id)->category_name ?? ''}}</td>
                     <td>{{$item->created_at->diffForhumans()}}</td>
 
                     <td>

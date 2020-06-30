@@ -329,20 +329,21 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('event.create')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-calendar-plus nav-icon"></i>
                                 <p>{{__('layout.add_a_new_project')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('my_events.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>{{__('layout.my_create_events')}}</p>
+                            <a href="{{route('listed_event.index')}}" class="nav-link">
+                                <i class="fas fa-calendar-day nav-icon"></i>
+{{--                                <i class="far fa-calendar nav-icon"></i>--}}
+                                <p>قائمة {{__('layout.my_create_events')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/tables/jsgrid.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>jsGrid</p>
+                            <a href="{{route('event.calendar')}}" class="nav-link">
+                                <i class="far fa-calendar-alt nav-icon"></i>
+                                <p> المشاريع المجدولة</p>
                             </a>
                         </li>
                     </ul>

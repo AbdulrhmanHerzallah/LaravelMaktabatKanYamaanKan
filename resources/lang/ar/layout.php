@@ -40,7 +40,7 @@ return [
     'create_demand' => 'إنشاء طلب',
     'create_admin_demand' => 'إنشاء طلب للمدير',
     'add_a_new_project' => 'إضافة مشروع جديد',
-    'my_create_events' => 'المشاريع التي أنشأتها',
+    'my_create_events' => 'المشاريع المدرجة',
     'tax_number_company' => '310575536100003',
     'create_user_by_admin' => 'إنشاء مستخدم جديد',
     'users_info' => 'معلومات المستخدمين',

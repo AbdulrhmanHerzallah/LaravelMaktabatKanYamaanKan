@@ -5,9 +5,22 @@
 <div class="container">
     <div class="card mt-4">
         <div class="card-body">
-            <p style="font-weight: bold">عنوان المشروع : <span><u>{{$event->title}}</u></span></p>
-            <p style="font-weight: bold">قائد المشروع : <span><u>{{$leader}}</u></span></p>
-            <p style="font-weight: bold">حالة المشروع : <span><u>منتهي</u></span></p>
+            <p style="font-weight: bold">عنوان المشروع : <span class="font-weight-normal">{{$event->title}}</span></p>
+            <p style="font-weight: bold">قائد المشروع : <span class="font-weight-normal">{{$leader}}</span></p>
+            <p style="font-weight: bold">فترة إنشاء المشروع :<span class="font-weight-normal"> {{$event->created_at->diffForHumans()}} </span></p>
+            <p style="font-weight: bold">حالة المشروع : <span class="font-weight-normal"><td>
+                @switch($event->state)
+                    @case('c')
+                    <span class="text-success">مكتمل</span>
+                    @break
+                    @case('u')
+                    <span class="text-danger">غير مكتمل</span>
+                    @break
+                    @default
+                    <span class="text-danger">غير مكتمل</span>
+                    @endswitch
+                        </td></span></p>
+
             <hr>
             <p class="font-weight-bold text-success">تفاصيل المشروع :</p>
             <div>{{$event->body}}</div>
@@ -16,8 +29,10 @@
                 <p class="text-success">بداية المشروع : {{$event->start}}</p>
                 <p class="text-danger">نهاية المشروع : {{$event->end}}</p>
             </div>
+            @if($event->file_path != null)
             <hr>
             <p class="font-weight-bold">ملف المشروع <a href="{{route('my_events.download_file' , ['id' => $event->id])}}" class="btn btn-outline-success mr-2"><i class="fas fa-download"></i></a></p>
+            @endif
             <hr>
             <div>
                 <p class="font-weight-bold">أعضاء الفريق : </p>
@@ -39,13 +54,13 @@
             </form>
             <div class="card-body">
                     @foreach($commits as  $item)
-                            <p class="font-weight-bold">{{$item['name']}}<small class="font-weight-normal">{{' '.$item['before'].' '}}</small>
+                            <p class="font-weight-bold">{{\App\Models\User::find($item->user_id)->name ?? ''}}<small class="font-weight-normal">{{' '.$item->updated_at->diffForHumans().' '}}</small>
 
-                                @if($item['user_id'] == Auth::id())
-                                    <button style="font-size: 9px" class="btn btn-primary mr-2" data-toggle="modal" data-target="#update_commit" data-id="{{$item['id']}}" data-commit="{{$item['commit']}}"><i class="fas fa-edit"></i></button>
-                                    <button style="font-size: 9px" class="btn btn-danger" data-toggle="modal" data-target="#delete_commit" data-id="{{$item['id']}}" data-commit="{{$item['commit']}}"><i class="fas fa-trash"></i></button></p>
+                                @if($item->user_id == Auth::id())
+                                    <button style="font-size: 9px" class="btn btn-primary mr-2" data-toggle="modal" data-target="#update_commit" data-id="{{$item->id}}" data-commit="{{$item->commit}}"><i class="fas fa-edit"></i></button>
+                                    <button style="font-size: 9px" class="btn btn-danger" data-toggle="modal" data-target="#delete_commit" data-id="{{$item->id}}" data-commit="{{$item->commit}}"><i class="fas fa-trash"></i></button></p>
                                 @endif
-                            <div class="mb-2 mr-2">{{$item['commit']}}</div>
+                            <div class="mb-2 mr-2">{{$item->commit}}</div>
                         <hr>
                     @endforeach
             </div>

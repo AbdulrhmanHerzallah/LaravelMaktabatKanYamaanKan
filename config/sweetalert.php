@@ -24,7 +24,7 @@ return [
     |
     */
 
-    'timer' => env('SWEET_ALERT_TIMER', null),
+    'timer' => env('SWEET_ALERT_TIMER', '7000'),
 
     /*
     |--------------------------------------------------------------------------

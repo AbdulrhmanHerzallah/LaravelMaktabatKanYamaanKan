@@ -23,6 +23,8 @@ class CreateEventsTable extends Migration
             $table->date('start');
             $table->date('end');
 
+            $table->enum('state' , ['c' , 'u'])->nullable()->default('u');
+
             $table->unsignedBigInteger('user_id')->nullable()->index()->comment('how is create event');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');

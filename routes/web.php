@@ -88,8 +88,9 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
     Route::group(['prefix' => 'event' , 'namespace' => 'Event'] , function (){
         Route::get('/create' , ['as' => 'event.create' , 'uses' => 'EventController@create']);
         Route::post('/store' , ['as' => 'event.store' , 'uses' => 'EventController@store']);
-        Route::get('/my-events/index' , ['as' => 'my_events.index' , 'uses' => 'EventController@index']);
-        Route::get('/my-events/show/{id}' , ['as' => 'my_events.show' , 'uses' => 'EventController@show']);
+        Route::get('/events-listed/index' , ['as' => 'listed_event.index' , 'uses' => 'EventController@index']);
+        Route::get('/show/{id}' , ['as' => 'show_event.show' , 'uses' => 'EventController@show']);
+        Route::get('/calendar' , ['as' => 'event.calendar' , 'uses' => 'EventController@calendar']);
         Route::get('/my-events/download-file/{id}' , ['as' => 'my_events.download_file' , 'uses' => 'EventController@download_file']);
         Route::post('/my-events/commit' , ['as' => 'my_events.commit' , 'uses' => 'EventController@commit']);
         Route::post('/my-events/update' , ['as' => 'my_events.update' , 'uses' => 'EventController@update_commit']);

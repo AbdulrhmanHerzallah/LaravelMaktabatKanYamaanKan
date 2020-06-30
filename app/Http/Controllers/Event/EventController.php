@@ -11,19 +11,26 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Commit;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\CommitResource;
+use App\Http\Requests\EventRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EventController extends Controller
 {
 
     public function index()
     {
+        $user = User::find(auth()->id());
+        $events = $user->events()->paginate(10);
+        return view('dashboard.event.events-listed.index' , ['events' => $events]);
+    }
 
-        $events = Event::select('*')->where('user_id' , '=' , auth()->id())->get();
+    public function calendar()
+    {
+        $user = User::find(auth()->id());
 
-
-            $last_event_default =  Event::select('start')->where('user_id' , '=' , auth()->id())->get()->last();
-            $events = MyEventResource::collection($events);
-        return view('dashboard.event.my-event.index' , ['event' => $events  , 'default' => $last_event_default]);
+        $events = $user->events;
+        $last_event = $user->events->last();
+        return view('dashboard.event.events-listed.calendar' , ['events' => $events , 'last_event' => $last_event]);
     }
 
 
@@ -35,21 +42,30 @@ class EventController extends Controller
         return view('dashboard.event.create' , ['users' => $users]);
     }
 
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
 
-       $file = $request->file('file');
-       $fileOriginalName = $file->getClientOriginalName();
-       $fileOriginalExtension = $file->getClientOriginalExtension();
-       Storage::makeDirectory('app/files/'. $fileOriginalExtension);
-       $file_path = $file->storeAs('app/files/'.$fileOriginalExtension , $fileOriginalName);
+        if ($request->hasFile('file'))
+        {
+            $file = $request->file('file');
+            $fileOriginalName = $file->getClientOriginalName();
+            $fileOriginalExtension = $file->getClientOriginalExtension();
+            Storage::makeDirectory('app/files/'. $fileOriginalExtension);
+            $file_path = $file->storeAs('app/files/'.$fileOriginalExtension , $fileOriginalName);
+        }
+
 
         $event = Event::create(array_merge($request->except('team' , 'file')
-            , ['user_id' => auth()->id() , 'file_name' => $fileOriginalName , 'file_path' => $file_path]
+            , ['user_id' => auth()->id() , 'file_name' => $fileOriginalName ?? null , 'file_path' => $file_path ?? null]
         ));
 
        $ids = $request->team;
-       $event->common_users()->attach($ids);
+       $event->common_users()->sync(array_merge($ids , [auth()->id() , $request->leader_id]));
+
+        Alert::success('تم إضافة مهمة', $request->title);
+
+        return redirect()->back();
+
     }
 
 
@@ -62,16 +78,9 @@ class EventController extends Controller
      });
 
        $commits = $event->commits;
-        foreach ($commits as $key => $commit){
-            $comm[$key]['id'] = $commit->id;
-            $comm[$key]['commit'] = $commit->commit;
-            $comm[$key]['user_id'] = $commit->user_id;
-            $comm[$key]['before'] = $commit->updated_at->diffForHumans();
-            $comm[$key]['name'] = User::find($commit->id)->name;
-        }
 
-        return view('dashboard.event.my-event.show' ,
-            ['event' => $event , 'leader' => $leader , 'members' => $member_users , 'commits' => $comm ]
+        return view('dashboard.event.events-listed.show' ,
+            ['event' => $event , 'leader' => $leader , 'members' => $member_users , 'commits' => $commits ]
         );
 
     }
@@ -87,19 +96,31 @@ class EventController extends Controller
 
     public function commit(Request $request)
     {
+
+        $request->validate([
+            'commit' => 'required'
+        ] , $request->all());
+
         $event = Event::find($request->id);
         $commit = new Commit();
         $commit->commit =  $request->commit;
         $commit->user_id =  auth()->id();
         $event->commits()->save($commit);
+        toast('تم إضافة ملاحظة','success');
+        return redirect()->back();
     }
 
 
     public function update_commit(Request $request)
     {
+        $request->validate([
+            'commit' => 'required'
+        ] , $request->all());
+
         $commit = Commit::find($request->id);
         $commit->commit = $request->commit;
         $commit->save();
+        toast('تم تحديث الملاحظة','success');
         return redirect()->back();
     }
 
@@ -107,6 +128,8 @@ class EventController extends Controller
     {
         $commit = Commit::find($request->id);
         $commit->delete();
+        toast('تم حذف التعليق','success');
+
         return redirect()->back();
     }
 

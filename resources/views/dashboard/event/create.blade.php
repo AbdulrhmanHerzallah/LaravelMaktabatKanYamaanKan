@@ -16,30 +16,31 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label for="title">إسم المشروع</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="العنوان" value="{{old('title')}}">
+                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title" placeholder="العنوان" value="{{old('title')}}">
                     </div>
 
                     <div class="form-group">
                         <label for="note">معلومات عن المشروع</label>
-                        <textarea name="body" class="form-control" id="note" placeholder="الوصف" spellcheck="false">{{old('body')}}</textarea>
+                        <textarea name="body" class="form-control @error('body') is-invalid @enderror" id="note" placeholder="الوصف" spellcheck="false">{{old('body')}}</textarea>
                     </div>
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">البداية</span>
                         </div>
-                        <input type="date" name="start" value="{{old('start')}}" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="date" name="start" value="{{old('start')}}" class="form-control @error('start') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                         <span>&nbsp;&nbsp;&nbsp;</span>
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-default">النهاية</span>
                         </div>
-                        <input name="end" type="date" value="{{old('end')}}" class="form-control " aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input name="end" type="date" value="{{old('end')}}" class="form-control @error('end') is-invalid @enderror" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
 
                     <div class="form-group">
                         <label for="leader">قائد المشروع</label>
-                        <select name="leader_id" class="form-control" id="leader">
-                            @foreach($users as $user)
+                        <select name="leader_id" class="form-control @error('leader_id') is-invalid @enderror" id="leader">
+                            <option value="" selected>حدد القائد</option>
+                        @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach
                         </select>
@@ -47,7 +48,7 @@
 
                     <div class="form-group">
                         <label for="emp">الفريق</label>
-                        <select multiple name="team[]" class="form-control" id="emp">
+                        <select multiple name="team[]" class="form-control @error('team') is-invalid @enderror" id="emp">
                             @foreach($users as $user)
                                 <option value="{{$user->id}}">{{$user->name}}</option>
                             @endforeach

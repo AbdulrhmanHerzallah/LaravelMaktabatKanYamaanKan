@@ -119,3 +119,14 @@ Breadcrumbs::for('inbox_d' , function ($trail) {
 });
 
 
+Breadcrumbs::for('create_event' , function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(__('layout.create_event') , route('event.create'));
+
+});
+
+Breadcrumbs::for('event_listed' , function ($trail) {
+    $trail->parent('create_event');
+    $trail->push(__('layout.event_listed') , route('listed_event.index'));
+
+});

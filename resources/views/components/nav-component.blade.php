@@ -42,13 +42,24 @@
                 <span class="dropdown-item dropdown-header">{{auth()->user()->unreadNotifications->count()}} اشعار</span>
                 <div class="dropdown-divider"></div>
                 @foreach(auth()->user()->unreadNotifications as $nty)
+                @if($nty->type == \App\Notifications\DemandNotification::class)
                 <a href="{{route('demand.show-single-demand' , ['id_not' => $nty->id  , 'id_d' => $nty->data['demand_id']  ])}}" class="dropdown-item">
                     <i class="fas fa-envelope mr-2"></i> {{$nty->data['title']}}
                     <span class="float-right text-muted text-sm">{{$nty->created_at->diffForHumans()}}</span>
                     <span>&nbsp;
                 </span>
-                    <p class="text-muted text-sm">المرسل {{$nty->data['sender_name']}}</p>
+                    <p class="text-muted text-sm">المرسل {{$nty->data['sender_name'] }}</p>
                 </a>
+                 @endif
+                 @if($nty->type == \App\Notifications\EventNotification::class)
+                        <a href="{{route('show_event.show' , ['id' => $nty->data['event_id'] , 'id_noty' => $nty->id  ])}}" class="dropdown-item">
+                            <i class="far fa-calendar-alt"></i> {{$nty->data['title']}}
+                            <span class="float-right text-muted text-sm">{{$nty->created_at->diffForHumans()}}</span>
+                            <span>&nbsp;
+                </span>
+                            <p class="text-muted text-sm">المرسل {{$nty->data['user_name'] }}</p>
+                        </a>
+                 @endif
                 @endforeach
 
 {{--                <div class="dropdown-divider"></div>--}}

@@ -1,38 +1,16 @@
 @extends('dashboard.index')
-
-{{--@section('head')--}}
-{{--    <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>--}}
-{{--    <link href='/fullcalendar/packages/core/main.css' rel='stylesheet' />--}}
-{{--    <link href='/fullcalendar/packages/bootstrap/main.css' rel='stylesheet' />--}}
-{{--    <link href='/fullcalendar/packages/timegrid/main.css' rel='stylesheet' />--}}
-{{--    <link href='/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />--}}
-{{--    <link href='/fullcalendar/packages/list/main.css' rel='stylesheet' />--}}
-{{--    <script src='/fullcalendar/packages/core/main.js'></script>--}}
-{{--    <script src='/fullcalendar/packages/interaction/main.js'></script>--}}
-{{--    <script src='/fullcalendar/packages/bootstrap/main.js'></script>--}}
-{{--    <script src='/fullcalendar/packages/daygrid/main.js'></script>--}}
-{{--    <script src='/fullcalendar/packages/timegrid/main.js'></script>--}}
-{{--    <script src='/fullcalendar/packages/list/main.js'></script>--}}
-{{--    <script src='/fullcalendar/packages/core/locales-all.js'></script>--}}
-
-{{--@endsection--}}
-
 @section('style')
     <style>
-        /*button{*/
-        /*    margin: 5px;*/
-        /*}*/
-
         td , th {
             text-align: center;
         }
-
     </style>
 @endsection
-
 @section('content')
-
 <div class="container mt-5">
+    <div class="content mt-2">
+        {{ Breadcrumbs::render('event_listed') }}
+    </div>
     <table class="table table-striped table-dark">
         <thead>
         <tr>
@@ -72,80 +50,76 @@
                 <form action="{{route('show_event.show' , ['id' => $i->id])}}" method="get">
                     <button type="submit" class="btn btn-outline-light text-left"><i class="far fa-eye"></i></button>
                 </form>
-            <td><button class="btn btn-outline-light text-left"><i class="far fa-edit"></i></button></td>
+            <td>
+                @if($i->user_id || $i->leader_id != auth()->id())
+                <button class="btn btn-outline-light text-left" data-toggle="modal" data-target="#update"
+                        data-id="{{$i->id}}"
+                        data-title="{{$i->title}}"
+                        data-body="{{$i->body}}"
+                        data-start="{{$i->start}}"
+                        data-end="{{$i->end}}"
+                        data-state="{{$i->state}}"
+                        data-leader_id="{{$i->leader_id}}"
+                        data-file_path="{{$i->file_path}}">
+                    <i class="far fa-edit"></i></button></td>
+            @endif
         </tr>
         @endforeach
-
         </tbody>
     </table>
-
     <div class="d-flex justify-content-center">
         {!! $events->links() !!}
     </div>
-
 </div>
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title title" id="">New message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{route('event.update-state')}}" method="post">
+                    @csrf
+                    <input type="hidden" id="id" name="id">
+                    <select name="state" class="custom-select custom-select-sm">
+                        <option selected>تحديث الحالة</option>
+                        <option id="c" value="c">مكتمل</option>
+                        <option id="u" value="u">غير مكتمل</option>
+                    </select>
+                    <div  class="p-3">
+                        <button type="submit" class="btn btn-primary">تحديث الحالة</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إالغاء</button>
+                    </div>
+                </form>
+            </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{--    <div class="container mt-5">--}}
-{{--        <div class="row d-flex justify-content-center">--}}
-{{--            <div class="col-lg-12">--}}
-{{--                <div id='calendar' class="fc fc-ltr fc-bootstrap" style="background-color: #35485a;padding: 30px;color: #ecf0f1;border-radius: 10px"></div>--}}
-{{--                <br><br>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+        </div>
+    </div>
+</div>
 @endsection
+@section('script')
+<script>
+    $('#update').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget) // Button that triggered the modal
+        let id = button.data('id') // Extract info from data-* attributes
+        let title = button.data('title') // Extract info from data-* attributes
+        let body = button.data('body') // Extract info from data-* attributes
+        let start = button.data('start') // Extract info from data-* attributes
+        let end = button.data('end') // Extract info from data-* attributes
+        let state = button.data('state') // Extract info from data-* attributes
+        let leader_id = button.data('leader_id') // Extract info from data-* attributes
+        let file_path = button.data('file_path') // Extract info from data-* attributes
 
-
-
-{{--@section('script')--}}
-
-{{--<script>--}}
-    {{--document.addEventListener('DOMContentLoaded', function() {--}}
-    {{--    var initialLocaleCode = 'ar';--}}
-    {{--    var calendarEl = document.getElementById('calendar');--}}
-    {{--    var calendar = new FullCalendar.Calendar(calendarEl, {--}}
-    {{--        plugins: [ 'bootstrap', 'interaction', 'dayGrid', 'timeGrid', 'list' ],--}}
-    {{--        dir : "ltr",--}}
-    {{--        defaultDate: '{{$default->start ?? ''}}',--}}
-    {{--        editable: false,--}}
-    {{--        locale: initialLocaleCode,--}}
-    {{--        buttonIcons: true, // show the prev/next text--}}
-    {{--        weekNumbers: true,--}}
-    {{--        navLinks: true, // can click day/week names to navigate views--}}
-    {{--        themeSystem : 'bootstrap',--}}
-    {{--        // editable: true,--}}
-    {{--        eventLimit: true, // allow "more" link when too many events--}}
-    {{--        events: [--}}
-    {{--            @foreach($event as $item)--}}
-    {{--            {--}}
-    {{--              title : '{{$item->title}}',--}}
-    {{--              start : '{{$item->start}}',--}}
-    {{--              end   : '{{$item->end}}',--}}
-    {{--              color : '{{$item->color}}',--}}
-    {{--              url   :  '{{route('my_events.show' , ['id' => $item->id])}}'--}}
-    {{--            },--}}
-    {{--            @endforeach--}}
-    {{--        ]--}}
-    {{--    });--}}
-    {{--    calendar.render();--}}
-    {{--});--}}
-
-{{--// </script>--}}
-
-
-
-{{--@endsection--}}
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.title').text(title)
+        modal.find('#id').val(id)
+        modal.find(`#${state}`).attr('selected' , true);
+        // modal.find('.modal-body input').val(recipient)
+    })
+</script>
+@endsection

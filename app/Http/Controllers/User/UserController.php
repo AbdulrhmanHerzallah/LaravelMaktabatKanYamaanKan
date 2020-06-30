@@ -18,6 +18,13 @@ use App\Http\Requests\UpdateUserAccountRequest;
 
 class UserController extends Controller
 {
+
+    public function index()
+    {
+        $user = User::find(auth()->id());
+        return $user;
+    }
+
     public function create()
     {
         return view('dashboard.user.create-user-by-admin.create');

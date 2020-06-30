@@ -41,9 +41,16 @@ class EventController extends Controller
 
         return view('dashboard.event.create' , ['users' => $users]);
     }
-
+//EventRequest
     public function store(EventRequest $request)
     {
+        $leader_id = [$request->leader_id];
+        $team = $request->team;
+        $member = array_merge($leader_id , $team);
+        unset($member[auth()->id()]);
+        $member =  array_unique($member);
+        $member = array_values($member);
+
 
         if ($request->hasFile('file'))
         {
@@ -59,6 +66,13 @@ class EventController extends Controller
             , ['user_id' => auth()->id() , 'file_name' => $fileOriginalName ?? null , 'file_path' => $file_path ?? null]
         ));
 
+        foreach ($member as $id)
+        {
+            $user = User::find($id);
+            $user->notify(new \App\Notifications\EventNotification($request->title , auth()->user()->name , $event->id));
+        }
+
+
        $ids = $request->team;
        $event->common_users()->sync(array_merge($ids , [auth()->id() , $request->leader_id]));
 
@@ -69,8 +83,13 @@ class EventController extends Controller
     }
 
 
-    public function show($id)
+    public function show($id , $id_noty)
     {
+        if ($id_noty)
+        {
+            $user = User::findOrFail(auth()->id());
+            $user->notifications->find($id_noty)->markAsRead();
+        }
         $event = Event::findOrFail($id);
         $leader = $event->leader->name;
         $member_users = $event->users->map(function ($i){
@@ -133,6 +152,15 @@ class EventController extends Controller
         return redirect()->back();
     }
 
+
+    public function update_state(Request $request)
+    {
+      $event = Event::find($request->id);
+      $event->state = $request->state;
+       toast('تم تحديث الحالة','success');
+      $event->save();
+      return redirect()->back();
+    }
 
 
 }

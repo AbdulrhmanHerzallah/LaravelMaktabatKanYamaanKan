@@ -6,6 +6,11 @@
 <div class="container">
         <!-- /.card -->
         <!-- Horizontal Form -->
+    <div class="content mt-2">
+        {{ Breadcrumbs::render('create_event') }}
+    </div>
+
+
         <div class="card card-info mt-3">
             <div class="card-header">
                 <h3 style="font-size: 15px">إضافة مهمة</h3>

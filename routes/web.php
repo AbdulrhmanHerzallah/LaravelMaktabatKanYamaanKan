@@ -89,7 +89,8 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::get('/create' , ['as' => 'event.create' , 'uses' => 'EventController@create']);
         Route::post('/store' , ['as' => 'event.store' , 'uses' => 'EventController@store']);
         Route::get('/events-listed/index' , ['as' => 'listed_event.index' , 'uses' => 'EventController@index']);
-        Route::get('/show/{id}' , ['as' => 'show_event.show' , 'uses' => 'EventController@show']);
+        Route::get('/show/{id}/{id_noty?}' , ['as' => 'show_event.show' , 'uses' => 'EventController@show']);
+        Route::post('/update-state' , ['as' => 'event.update-state' , 'uses' => 'EventController@update_state']);
         Route::get('/calendar' , ['as' => 'event.calendar' , 'uses' => 'EventController@calendar']);
         Route::get('/my-events/download-file/{id}' , ['as' => 'my_events.download_file' , 'uses' => 'EventController@download_file']);
         Route::post('/my-events/commit' , ['as' => 'my_events.commit' , 'uses' => 'EventController@commit']);
@@ -100,6 +101,7 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
 
     Route::group(['prefix' => 'users' , 'namespace' => 'User'] , function (){
         Route::get('/create-user' , ['as' => 'user.create' , 'uses' => 'UserController@create']);
+        Route::get('/my-info' , ['as' => 'user.info' , 'uses' => 'UserController@index']);
         Route::post('/store-user' , ['as' => 'user.store' , 'uses' => 'UserController@store']);
         Route::post('/store-conform-data' , ['as' => 'user.store_data_conform' , 'uses' => 'UserController@store_data_conform']);
         Route::get('/store-conform-data/{id}' , ['as' => 'user.index' , 'uses' => 'UserController@index_conform_data']);
@@ -108,12 +110,4 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::post('/user/update-account-settings' , ['as' => 'user.update_user_account' , 'uses' => 'UserController@update_user_account']);
         Route::post('/update-users' , ['as' => 'user.update_users' , 'uses' => 'UserController@update_users']);
     });
-});
-
-
-use RealRashid\SweetAlert\Facades\Alert;
-
-Route::get('/test' , function (){
-//    dd(Hash::make('kk123123'));
-
 });

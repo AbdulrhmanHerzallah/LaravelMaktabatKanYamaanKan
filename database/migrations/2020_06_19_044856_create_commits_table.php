@@ -19,11 +19,11 @@ class CreateCommitsTable extends Migration
 
             $table->unsignedBigInteger('event_id')->nullable()->index();
             $table->foreign('event_id')->references('id')->on('events')
-                ->onDelete('cascade')->onUpdate('cascade');
+                ->onUpdate('cascade');
 
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')->onUpdate('cascade');
+                ->onUpdate('cascade');
 
 
             $table->timestamps();

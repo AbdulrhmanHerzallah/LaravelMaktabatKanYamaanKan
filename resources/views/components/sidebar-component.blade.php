@@ -43,21 +43,28 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('user.create')}}" class="nav-link">
-                                <i class="fas fa-user-plus"></i>
+                                <i class="fas fa-user-plus nav-icon"></i>
                                 <p>إنشاء موظف جديد</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a href="{{route('user.get_users_info')}}" class="nav-link">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-users nav-icon"></i>
                                 <p>معلومات الموظفين</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{route('user.info')}}" class="nav-link">
+                                <i class="fas fa-user-circle nav-icon"></i>
+                                <p>معلوماتي</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{route('user.edit_account_sett')}}" class="nav-link">
-                                <i class="fas fa-user-cog"></i>
+                                <i class="fas fa-user-cog nav-icon"></i>
                                 <p>إعدادات الحساب</p>
                             </a>
                         </li>

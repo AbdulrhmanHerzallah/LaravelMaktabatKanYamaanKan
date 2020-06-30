@@ -31,8 +31,8 @@
     <div style="text-align: right;padding: 10px;padding-bottom: 30px;margin-left: 60px;font-size: 15px">
         يسعدنا انضمامك لفريق كان ياما كان، هذه الرسالة تحتوي على كلمة المرور الخاصة بك.. أرجوا منك المحافظة عليها وعدم مشاركتها مع أحد.
         <div><span style="font-weight: bold">كلمة المرور : {{$password}}</span></div>
-        <div>لتأكيد تسجيلك في منصة العمل، نرجو منك الضغط على الرابط التالي</div>
-        <div><a href="{{route('user.index' , ['id' => $data->id])}}">تأكيد البينات</a></div>
+{{--        <div>لتأكيد تسجيلك في منصة العمل، نرجو منك الضغط على الرابط التالي</div>--}}
+{{--        <div><a href="{{route('user.index' , ['id' => $data->id])}}">تأكيد البينات</a></div>--}}
         <p style="font-weight: bold">شكراََ لك</p>
         <p style="font-weight: bold">عبدالرحمن القاضي</p>
 

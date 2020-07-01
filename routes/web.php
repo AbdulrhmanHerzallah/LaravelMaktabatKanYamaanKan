@@ -33,7 +33,7 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::get('/create' , ['as' => 'letter.create' , 'uses' => 'LetterController@create']);
         Route::post('/store' , ['as' => 'letter.store' , 'uses' => 'LetterController@store']);
         Route::get('/show' , ['as' => 'letter.show' , 'uses' => 'LetterController@show']);
-        Route::get('/show-admin' , ['as' => 'letter.show_admin' , 'uses' => 'LetterController@show_admin']);
+        Route::get('/show-admin' , ['as' => 'letter.show_admin' , 'uses' => 'LetterController@show_admin'])->middleware('AdminAndBranchManager');
         Route::get('/download-latter/{id}' , ['as' => 'letter.download' , 'uses' => 'LetterController@download']);
     });
 
@@ -42,7 +42,7 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::post('/store' , ['as' => 'bill.store' , 'uses' => 'BillController@store']);
         Route::post('/print-bill' , ['as' => 'bill.print_bill' , 'uses' => 'BillController@print_bill']);
         Route::get('/my-bill/show' , ['as' => 'bill.showMyBill' , 'uses' => 'BillController@showMyBill']);
-        Route::get('/all-bills/show' , ['as' => 'bill.all_bills_admin' , 'uses' => 'BillController@showAllBillByAdmin']);
+        Route::get('/all-bills/show' , ['as' => 'bill.all_bills_admin' , 'uses' => 'BillController@showAllBillByAdmin'])->middleware('AdminAndBranchManager');
         Route::get('/show-bill-stream/{id}' , ['as' => 'bill.showBillStream' , 'uses' => 'BillController@showBillStream']);
     });
 
@@ -52,7 +52,7 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::post('/store' , ['as' => 'file.store' , 'uses' => 'FilesUploadController@store']);
 
         Route::group(['prefix' => 'file-categories'] , function (){
-            Route::get('/create' , ['as' => 'file_cat.create' , 'uses' => 'FilesCategoriesController@create']);
+            Route::get('/create' , ['as' => 'file_cat.create' , 'uses' => 'FilesCategoriesController@create'])->middleware('AdminAndBranchManager');
             Route::post('/store' , ['as' => 'file_cat.store' , 'uses' => 'FilesCategoriesController@store']);
             Route::post('/update' , ['as' => 'file_cat.update' , 'uses' => 'FilesCategoriesController@update']);
             Route::post('/delete' , ['as' => 'file_cat.delete' , 'uses' => 'FilesCategoriesController@delete']);
@@ -71,13 +71,13 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
 
         Route::group(['prefix' => 'get-common-files'] , function (){
             Route::get('/' , ['as' => 'public.file.index' , 'uses' => 'FilesCommonController@index']);
-            Route::get('/get-file-admin' , ['as' => 'admin.file.index' , 'uses' => 'FilesCommonController@getAllFileAdmin']);
+            Route::get('/get-file-admin' , ['as' => 'admin.file.index' , 'uses' => 'FilesCommonController@getAllFileAdmin'])->middleware('AdminAndBranchManager');
         });
     });
 
     Route::group(['prefix' => 'demand' , 'namespace' => 'Demand'] , function (){
        Route::get('/emp-create' , ['as' => 'demand.create' , 'uses' => 'DemandController@create']);
-       Route::get('/admin-create' , ['as' => 'demand.create_admin' , 'uses' => 'DemandController@create_admin']);
+       Route::get('/admin-create' , ['as' => 'demand.create_admin' , 'uses' => 'DemandController@create_admin'])->middleware('AdminRejectionMiddleware');
        Route::post('/admin-store' , ['as' => 'demand.store_admin' , 'uses' => 'DemandController@store_admin']);
        Route::post('/store' , ['as' => 'demand.store' , 'uses' => 'DemandController@store']);
        Route::get('/show-all-my-demand' , ['as' => 'demand.show-my-demand' , 'uses' => 'DemandController@showAllMyMessages']);

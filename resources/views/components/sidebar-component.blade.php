@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="{{url('/')}}" class="brand-link">
         <img src="/logo/logo.jpeg" alt="AdminLTE Logo" width="200" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light">مكتبة كان ياما كان</span>
     </a>
@@ -35,12 +35,18 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                            الموظفون
+                            @if(auth()->user()->permission == 1)
+                                الموظفون
+                            @else
+                                حسابي
+                            @endif
                             <i class="fas fa-angle-left right"></i>
                             <!--                  <span class="badge badge-info right">6</span>-->
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        @if(auth()->user()->permission == 1)
+
                         <li class="nav-item">
                             <a href="{{route('user.create')}}" class="nav-link">
                                 <i class="fas fa-user-plus nav-icon"></i>
@@ -54,6 +60,7 @@
                                 <p>معلومات الموظفين</p>
                             </a>
                         </li>
+                        @endif
 
                         <li class="nav-item">
                             <a href="{{route('user.info')}}" class="nav-link">
@@ -158,22 +165,25 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('bill.create')}}" class="nav-link">
-                                <i class="fas fa-plus"></i>
+                                <i class="fas fa-plus nav-icon"></i>
                                 <p>{{__('layout.create_new_bill')}}</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{route('bill.showMyBill')}}" class="nav-link">
-                                <i class="fas fa-money-bill"></i>
+                                <i class="fas fa-money-bill nav-icon"></i>
                                 <p>الفواتير التي أنشأتها</p>
                             </a>
                         </li>
+                        @if(auth()->user()->permission == 1 || auth()->user()->permission == 2 )
+
                         <li class="nav-item">
                             <a href="{{route('bill.all_bills_admin')}}" class="nav-link">
-                                <i class="far fa-money-bill-alt"></i>
+                                <i class="far fa-money-bill-alt nav-icon"></i>
                                 <p>جميع الفواتير</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
@@ -197,12 +207,14 @@
                                 <p>الخطابات التي انشأتها</p>
                             </a>
                         </li>
+                        @if(auth()->user()->permission == 1 || auth()->user()->permission == 2 )
                         <li class="nav-item">
                             <a href="{{route('letter.show_admin')}}" class="nav-link">
                                 <i class="fas fa-align-center"></i>
                                 <p>جميع خطابات الموظفين</p>
                             </a>
                         </li>
+                        @endif
 {{--                        <li class="nav-item">--}}
 {{--                            <a href="pages/UI/sliders.html" class="nav-link">--}}
 {{--                                <i class="far fa-circle nav-icon"></i>--}}
@@ -262,18 +274,22 @@
                                 <p>{{__('layout.public_file')}}</p>
                             </a>
                         </li>
+                        @if(auth()->user()->permission == 1 || auth()->user()->permission == 2 )
+
                         <li class="nav-item">
                             <a href="{{route('file_cat.create')}}" class="nav-link">
                                 <i class="fas fa-tasks nav-icon"></i>
                                 <p>{{__('layout.file_cat')}}</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{route('admin.file.index')}}" class="nav-link">
                                 <i class="far fa-save nav-icon"></i>
                                 <p>{{__('layout.all_files')}}</p>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
 
@@ -292,12 +308,15 @@
                                 <p>{{__('layout.create_demand')}}</p>
                             </a>
                         </li>
+                        @if(auth()->user()->permission != 1 )
+
                         <li class="nav-item">
                             <a href="{{route('demand.create_admin')}}" class="nav-link">
                                 <i class="fas fa-envelope-square nav-icon"></i>
                                 <p>{{__('layout.create_admin_demand')}}</p>
                             </a>
                         </li>
+                        @endif
 
                         <li class="nav-item">
                             <a href="{{route('demand.show-inbox-demand')}}" class="nav-link">

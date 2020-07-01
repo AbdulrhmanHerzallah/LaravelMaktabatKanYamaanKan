@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
+<input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label for="remember">
                                 تذكرني
                             </label>
@@ -66,7 +66,7 @@
 
 
             <p class="mb-1">
-                <a href="#">نسيت كلمة المرور</a>
+                <a href="{{ route('password.request') }}">نسيت كلمة المرور</a>
             </p>
         </div>
         <!-- /.login-card-body -->

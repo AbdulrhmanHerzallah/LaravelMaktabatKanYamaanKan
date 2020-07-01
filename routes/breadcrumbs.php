@@ -128,5 +128,9 @@ Breadcrumbs::for('create_event' , function ($trail) {
 Breadcrumbs::for('event_listed' , function ($trail) {
     $trail->parent('create_event');
     $trail->push(__('layout.event_listed') , route('listed_event.index'));
+});
 
+Breadcrumbs::for('my-info' , function ($trail) {
+    $trail->parent('dashboard');
+    $trail->push(__('layout.my-info') , route('user.info'));
 });

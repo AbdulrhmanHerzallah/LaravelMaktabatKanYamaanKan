@@ -26,6 +26,7 @@ class CreateUserByAdminRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users,email',
             'phone_number' => 'required|max:200',
+            'number_of_vacations' => 'required',
             'name' => 'required|max:200',
             'salary' => 'required|max:200',
             'contract_starting_date' => 'required|max:200|date',

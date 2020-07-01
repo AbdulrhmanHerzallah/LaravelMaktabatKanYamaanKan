@@ -47,6 +47,7 @@
                     <th scope="col">الايميل</th>
                     <th scope="col">رقم الهاتف</th>
                     <th scope="col">المسمي الوظفي</th>
+                    <th scope="col">عدد الاجازات</th>
                     <th scope="col">رقم الهاوية</th>
                     <th scope="col">رقم الضمان الاجتماعي</th>
                     <th scope="col">الجنس</th>
@@ -96,6 +97,7 @@
                                 @default
                             @endswitch
                         </td>
+                        <td>{{$user->number_of_vacations}}</td>
                         <td>{{$user->national_identity}}</td>
                         <td>{{$user->social_insurance_number}}</td>
                         <td>
@@ -128,6 +130,7 @@
                                     data-contractstartingdate="{{$user->contract_starting_date}}"
                                     data-contractendingdate="{{$user->contract_ending_date}}"
                                     data-datasubscribesocial="{{$user->data_subscribe_social}}"
+                                    data-numberofvacations="{{$user->number_of_vacations}}"
                             >
                                 <i class="fas fa-user-edit"></i>
                             </button>
@@ -203,6 +206,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="number_of_vacations">عدد الايجازات</label>
+                                    <input value="{{old('number_of_vacations' , 7)}}" max="1000" min="0" type="number" name="number_of_vacations" class="@error('number_of_vacations') is-invalid @enderror form-control" id="number_of_vacations">
+                                </div>
+
+                                <div class="form-group">
                                     <label for="social_insurance_number">رقم الضمان الاجتماعي</label>
                                     <input type="text" name="social_insurance_number" class="form-control" id="social_insurance_number">
                                 </div>
@@ -264,6 +272,7 @@
             var contractStartingDate = button.data('contractstartingdate') // Extract info from data-* attributes
             var contractEndingDate = button.data('contractendingdate') // Extract info from data-* attributes
             var dataSubscribeSocial = button.data('datasubscribesocial') // Extract info from data-* attributes
+            var number_of_vacations = button.data('numberofvacations') // Extract info from data-* attributes
 
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -283,6 +292,7 @@
             modal.find('#contract_starting_date').val(contractStartingDate)
             modal.find('#contract_ending_date').val(contractEndingDate)
             modal.find('#data_subscribe_social').val(dataSubscribeSocial)
+            modal.find('#number_of_vacations').val(number_of_vacations)
         })
 
     </script>

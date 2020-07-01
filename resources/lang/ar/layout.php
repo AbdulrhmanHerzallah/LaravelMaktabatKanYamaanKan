@@ -49,5 +49,6 @@ return [
     'all_users_create_bills' => 'جميع الفواتير التي انشأها الموظفين',
     'create_event' => 'إضافة مشروع جديد',
     'event_listed' => 'المشاريع المدرجة',
+    'my-info' => 'معلوماتي'
 
 ];

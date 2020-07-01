@@ -34,6 +34,11 @@
                         <input value="{{old('phone_number')}}" type="tel" name="phone_number" class="@error('phone_number') is-invalid @enderror form-control" id="phone_number">
                     </div>
 
+                <div class="form-group">
+                    <label for="number_of_vacations">عدد الايجازات</label>
+                    <input value="{{old('number_of_vacations' , 7)}}" max="1000" min="0" type="number" name="number_of_vacations" class="@error('number_of_vacations') is-invalid @enderror form-control" id="number_of_vacations">
+                </div>
+
                     <div class="form-group">
                         <label for="permission">الصلاحية</label>
                         <select name="permission" class="@error('permission') is-invalid @enderror form-control" id="permission">

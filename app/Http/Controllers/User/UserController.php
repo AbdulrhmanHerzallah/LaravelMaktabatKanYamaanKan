@@ -19,10 +19,20 @@ use App\Http\Requests\UpdateUserAccountRequest;
 class UserController extends Controller
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('AdminMiddleware')
+            ->except([
+                'index' , 'accountActivationFromUser'
+                , 'index_conform_data' , 'index_edit_user' , 'update_user_account'
+            ]);
+    }
+
     public function index()
     {
         $user = User::find(auth()->id());
-        return $user;
+        return view('dashboard.user.my-info.index' , ['user' => $user]);
     }
 
     public function create()

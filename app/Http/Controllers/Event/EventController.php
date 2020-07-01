@@ -21,6 +21,11 @@ class EventController extends Controller
     {
         $user = User::find(auth()->id());
         $events = $user->events()->paginate(10);
+        if ($events->count() == 0)
+        {
+            Alert::info('لا يوجد مشاريع لك!');
+
+        }
         return view('dashboard.event.events-listed.index' , ['events' => $events]);
     }
 
@@ -29,6 +34,13 @@ class EventController extends Controller
         $user = User::find(auth()->id());
 
         $events = $user->events;
+
+        if ($events->count() == 0)
+        {
+            Alert::info('لا يوجد مشاريع لك!');
+
+        }
+
         $last_event = $user->events->last();
         return view('dashboard.event.events-listed.calendar' , ['events' => $events , 'last_event' => $last_event]);
     }
@@ -41,7 +53,6 @@ class EventController extends Controller
 
         return view('dashboard.event.create' , ['users' => $users]);
     }
-//EventRequest
     public function store(EventRequest $request)
     {
         $leader_id = [$request->leader_id];

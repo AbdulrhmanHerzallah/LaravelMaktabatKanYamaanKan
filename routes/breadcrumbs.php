@@ -134,3 +134,7 @@ Breadcrumbs::for('my-info' , function ($trail) {
     $trail->parent('dashboard');
     $trail->push(__('layout.my-info') , route('user.info'));
 });
+Breadcrumbs::for('soft_users' , function ($trail) {
+    $trail->parent('create_user');
+    $trail->push(__('layout.get_users_soft') , route('user.get.users_del'));
+});

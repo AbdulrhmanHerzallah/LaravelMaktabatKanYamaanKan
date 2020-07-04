@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Hash;
 
 
 /*
@@ -15,9 +14,7 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'IndexController@index');
 
 
 Auth::routes(['register' => false]);
@@ -109,5 +106,8 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::get('/user/eddi-account-settings' , ['as' => 'user.edit_account_sett' , 'uses' => 'UserController@index_edit_user']);
         Route::post('/user/update-account-settings' , ['as' => 'user.update_user_account' , 'uses' => 'UserController@update_user_account']);
         Route::post('/update-users' , ['as' => 'user.update_users' , 'uses' => 'UserController@update_users']);
+        Route::post('/soft-del-user' , ['as' => 'user.soft_del' , 'uses' => 'UserController@softDel']);
+        Route::get('/restore-users' , ['as' => 'user.get.users_del' , 'uses' => 'UserController@getUsersDel']);
+        Route::post('/restore-user' , ['as' => 'user.restore.user' , 'uses' => 'UserController@getRestore']);
     });
 });

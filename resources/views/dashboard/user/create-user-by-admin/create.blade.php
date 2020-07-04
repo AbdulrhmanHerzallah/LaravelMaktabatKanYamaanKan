@@ -22,6 +22,11 @@
                     <div class="form-group">
                         <label for="email">البريد الالكتروني</label>
                         <input value="{{old('email')}}" type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp">
+                        @error('email')
+                        <div class="alert alert-danger mt-2">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
 
                     <div class="form-group">

@@ -60,6 +60,13 @@
                                 <p>معلومات الموظفين</p>
                             </a>
                         </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('user.get.users_del')}}" class="nav-link">
+                                    <i class="fas fa-user-slash nav-icon"></i>
+                                    <p>الموظفين المرحلين</p>
+                                </a>
+                            </li>
                         @endif
 
                         <li class="nav-item">

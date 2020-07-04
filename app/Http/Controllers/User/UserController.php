@@ -82,7 +82,12 @@ class UserController extends Controller
 
     public function get_users_info()
     {
-        $users = User::paginate(10);
+        $users = User::where('permission' , '!=' , 1)->paginate(10);
+        if ($users->count() == 0)
+        {
+            Alert::alert('لا يوجد موظفين مسجلين!');
+
+        }
         return view('dashboard.user.get_users_info.show' ,  ['users' => $users]);
     }
 
@@ -117,5 +122,30 @@ class UserController extends Controller
 
 
 
+    public function softDel(Request $request)
+    {
+        $user = User::find($request->id);
+        toast('تم ترحيل الموظف بنجاح','success');
+        $user->delete();
+        return redirect()->back();
+    }
+
+
+    public function getUsersDel()
+    {
+        $users = User::where('deleted_at' , '!=' , null)->withTrashed()->paginate(10);
+        if ($users->count() == 0) Alert::alert('لا  موظفين مرحلين!');
+
+        return view('dashboard.user.get_users_info.restore' , ['users' => $users]);
+    }
+
+    public function getRestore(Request $request)
+    {
+        $user = User::where('id' , '=' , $request->id)->withTrashed()->first();
+        $user->restore();
+        toast('تم ارجاع الموظف بنجاح','success');
+
+        return redirect()->back();
+    }
 
 }

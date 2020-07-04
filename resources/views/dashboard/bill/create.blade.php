@@ -156,7 +156,7 @@
 
                 <div class="col">
                     <label for="price_${count}">{{__('layout.price')}}</label>
-                    <input type="number" id="price_${count}" name="price[]" class="form-control mb-3"
+                    <input type="number" min="1" id="price_${count}" name="price[]" class="form-control mb-3"
                            placeholder="">
                 </div>
 

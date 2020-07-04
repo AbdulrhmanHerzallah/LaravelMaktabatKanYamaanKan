@@ -12,25 +12,32 @@
         th {
             font-size: 12px;
         }
+        @media only screen and (max-width: 400px) {
+            aside {
+                display: none;
+            }
+        }
+
     </style>
 @endsection
 
 @section('content')
 
-    <div class="container mt-2">
 
-            <div class="container mt-3">
-                <div class="content mt-2 mb-4">
-                    {{ Breadcrumbs::render('users_info') }}
-                </div>
+    <div class="container">
 
-
-
-        @if(Session::has('success'))
-            <div class="alert alert-success" role="alert">
-                {{Session::get('success')}}
+        <div class="mt-3">
+            <div class="content mt-2 mb-4">
+                {{ Breadcrumbs::render('users_info') }}
             </div>
-        @endif
+
+
+
+            @if(Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{Session::get('success')}}
+                </div>
+            @endif
 
             @if ($errors->any())
                 <div class="alert alert-danger" rel="alert">
@@ -40,114 +47,109 @@
                     @endforeach
                 </div>
             @endif
-            <table class="table mt-3" style="padding: 30px;">
-                <thead class="thead-dark">
+
+
+        <table class="table mt-3" style="padding: 30px;">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">إسم الموظف</th>
+                <th scope="col">الايميل</th>
+                <th scope="col">رقم الهاتف</th>
+                <th scope="col">المسمي الوظفي</th>
+                <th scope="col">الجنس</th>
+                <th scope="col"></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($users as $user)
                 <tr>
-                    <th scope="col">إسم الموظف</th>
-                    <th scope="col">الايميل</th>
-                    <th scope="col">رقم الهاتف</th>
-                    <th scope="col">المسمي الوظفي</th>
-                    <th scope="col">عدد الاجازات</th>
-                    <th scope="col">رقم الهاوية</th>
-                    <th scope="col">رقم الضمان الاجتماعي</th>
-                    <th scope="col">الجنس</th>
-                    <th scope="col">الراتب</th>
-                    <th scope="col">تاريخ بداية العقد</th>
-                    <th scope="col">تاريخ نهاية العقد</th>
-                    <th scope="col">تاريخ الاشتراك في التأمين الاجتماعي</th>
-                    <th scope="col"></th>
-
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->phone_number}}</td>
+                    <td>
+                        @switch($user->permission)
+                            @case(1)
+                            مدير عام
+                            @break
+                            @case(2)
+                            مدير فرع
+                            @break
+                            @case(3)
+                            أمينة مكتبة
+                            @break
+                            @case(4)
+                            موظف إدارة مالية
+                            @break
+                            @case(5)
+                            مسؤول التواصل
+                            @break
+                            @case(6)
+                            موظف إدارة التسويق
+                            @break
+                            @case(7)
+                            مدير التسويق
+                            @break
+                            @case(8)
+                            متعاون/متدرب
+                            @break
+                            @case(9)
+                            متطوع
+                            @break
+                            @default
+                        @endswitch
+                    </td>
+                    <td>
+                        @switch($user->gender)
+                            @case('m')
+                            ذكر
+                            @break
+                            @case('f')
+                            انثى
+                            @break
+                            @default
+                        @endswitch
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-primary"
+                                data-toggle="modal" data-target="#update_user"
+                                data-name="{{$user->name}}"
+                                data-id="{{$user->id}}"
+                                data-email="{{$user->email}}"
+                                data-phone="{{$user->phone_number}}"
+                                data-permission="{{$user->permission}}"
+                                data-nationalidentity="{{$user->national_identity}}"
+                                data-socialinsurancennumber="{{$user->social_insurance_number}}"
+                                data-gender="{{$user->gender}}"
+                                data-salary="{{$user->salary}}"
+                                data-contractstartingdate="{{$user->contract_starting_date}}"
+                                data-contractendingdate="{{$user->contract_ending_date}}"
+                                data-datasubscribesocial="{{$user->data_subscribe_social}}"
+                                data-numberofvacations="{{$user->number_of_vacations}}"
+                        >
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-outline-danger"
+                                data-toggle="modal" data-target="#del"
+                                data-id="{{$user->id}}"
+                                data-name="{{$user->name}}"
+                        >
+                            <i class="fas fa-user-minus"></i>
+                        </button>
+                    </td>
                 </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $user)
-                    <tr>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->phone_number}}</td>
-                        <td>
-                            @switch($user->permission)
-                                @case(1)
-                                مدير عام
-                                @break
-                                @case(2)
-                                مدير فرع
-                                @break
-                                @case(3)
-                                أمينة مكتبة
-                                @break
-                                @case(4)
-                                موظف إدارة مالية
-                                @break
-                                @case(5)
-                                مسؤول التواصل
-                                @break
-                                @case(6)
-                                موظف إدارة التسويق
-                                @break
-                                @case(7)
-                                مدير التسويق
-                                @break
-                                @case(8)
-                                متعاون/متدرب
-                                @break
-                                @case(9)
-                                متطوع
-                                @break
-                                @default
-                            @endswitch
-                        </td>
-                        <td>{{$user->number_of_vacations}}</td>
-                        <td>{{$user->national_identity}}</td>
-                        <td>{{$user->social_insurance_number}}</td>
-                        <td>
-                            @switch($user->gender)
-                                @case('m')
-                                ذكر
-                                @break
-                                @case('f')
-                                انثى
-                                @break
-                                @default
-                            @endswitch
-                        </td>
-                        <td>{{$user->salary}}</td>
-                        <td>{{$user->contract_starting_date}}</td>
-                        <td>{{$user->contract_ending_date}}</td>
-                        <td>{{$user->data_subscribe_social}}</td>
-                        <td>
-                            <button type="button" class="btn btn-outline-primary"
-                                    data-toggle="modal" data-target="#update_user"
-                                    data-name="{{$user->name}}"
-                                    data-id="{{$user->id}}"
-                                    data-email="{{$user->email}}"
-                                    data-phone="{{$user->phone_number}}"
-                                    data-permission="{{$user->permission}}"
-                                    data-nationalidentity="{{$user->national_identity}}"
-                                    data-socialinsurancennumber="{{$user->social_insurance_number}}"
-                                    data-gender="{{$user->gender}}"
-                                    data-salary="{{$user->salary}}"
-                                    data-contractstartingdate="{{$user->contract_starting_date}}"
-                                    data-contractendingdate="{{$user->contract_ending_date}}"
-                                    data-datasubscribesocial="{{$user->data_subscribe_social}}"
-                                    data-numberofvacations="{{$user->number_of_vacations}}"
-                            >
-                                <i class="fas fa-user-edit"></i>
-                            </button>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-
-            <div class="d-flex justify-content-center mt-4">
-                {{$users->links()}}
-            </div>
-
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+        <div class="d-flex justify-content-center">
+            {!! $users->links() !!}
+        </div>
     </div>
 
 
 
+<div class="d-flex justify-content-center">
         <div class="modal fade" id="update_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -247,12 +249,38 @@
                             <!-- /.card-footer -->
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
-                    </div>
                 </div>
             </div>
         </div>
+</div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="del" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="name">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        من خلال هذه العملية انت تقوم بالغاء صلاحية دخوله الي النظام علماََََ انك تستطيع ارجاعه متي تشاء وستبقي بيناته محفوظة بالنظام.
+                    </div>
+                    <form action="{{route('user.soft_del')}}" method="post">
+                        @csrf
+                        <input type="hidden" id="id" name="id">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">تاكيد</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
 
 @endsection
 
@@ -294,6 +322,24 @@
             modal.find('#data_subscribe_social').val(dataSubscribeSocial)
             modal.find('#number_of_vacations').val(number_of_vacations)
         })
+
+
+
+        $('#del').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var name = button.data('name') // Extract info from data-* attributes
+            var id = button.data('id') // Extract info from data-* attributes
+
+
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            // modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('#id').val(id)
+            modal.find('#name').text(name)
+
+        })
+
 
     </script>
 @endsection

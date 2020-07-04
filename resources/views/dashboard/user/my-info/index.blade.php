@@ -77,7 +77,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{$user->national_identity}}</h5>
-                <p class="card-text">رقم الهاوية</p>
+                <p class="card-text">رقم الهوية</p>
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{$user->social_insurance_number}}</h5>

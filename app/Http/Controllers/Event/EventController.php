@@ -94,9 +94,9 @@ class EventController extends Controller
     }
 
 
-    public function show($id , $id_noty)
+    public function show($id , $id_noty = null)
     {
-        if ($id_noty)
+        if ($id_noty != null)
         {
             $user = User::findOrFail(auth()->id());
             $user->notifications->find($id_noty)->markAsRead();

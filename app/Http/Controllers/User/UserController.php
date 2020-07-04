@@ -130,6 +130,14 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    public function forceDel(Request $request)
+    {
+        $user = User::where('id' , '=' , $request->id)->withTrashed()->first();
+        toast('تم حذف الموظف بشكل كامل من النظام!','success');
+        $user->forceDelete();
+        return redirect()->back();
+    }
+
 
     public function getUsersDel()
     {

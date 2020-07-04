@@ -118,6 +118,15 @@
                             >
                                 <i class="fas fa-trash-restore-alt"></i>
                             </button>
+
+                            <button type="button" class="btn btn-outline-danger"
+                                    data-toggle="modal" data-target="#del"
+                                    data-name="{{$user->name}}"
+                                    data-id="{{$user->id}}"
+                            >
+                                <i class="fas fa-trash"></i>
+                            </button>
+
                         </td>
                     </tr>
                 @endforeach
@@ -142,7 +151,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body text-success">
                         من خلال هذه العملية انت تقوم بارجاع الموظف الي النظام.
                     </div>
                     <form action="{{route('user.restore.user')}}" method="post">
@@ -160,12 +169,55 @@
 
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="del" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="name">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    من خلال هذه العملية انت تقوم <span class="text-danger font-weight-bold">(بحذف الموظف بشكل كامل من النظام.)</span>
+                </div>
+                <form action="{{route('user.force.del')}}" method="post">
+                    @csrf
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">تاكيد</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
         @endsection
 
         @section('script')
             <script>
 
                 $('#restore').on('show.bs.modal', function (event) {
+                    var button = $(event.relatedTarget) // Button that triggered the modal
+                    var name = button.data('name') // Extract info from data-* attributes
+                    var id = button.data('id') // Extract info from data-* attributes
+
+
+                    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                    var modal = $(this)
+                    // modal.find('.modal-title').text('New message to ' + recipient)
+                    modal.find('#id').val(id)
+                    modal.find('#name').text(name)
+
+                })
+
+                $('#del').on('show.bs.modal', function (event) {
                     var button = $(event.relatedTarget) // Button that triggered the modal
                     var name = button.data('name') // Extract info from data-* attributes
                     var id = button.data('id') // Extract info from data-* attributes

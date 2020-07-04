@@ -109,5 +109,6 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::post('/soft-del-user' , ['as' => 'user.soft_del' , 'uses' => 'UserController@softDel']);
         Route::get('/restore-users' , ['as' => 'user.get.users_del' , 'uses' => 'UserController@getUsersDel']);
         Route::post('/restore-user' , ['as' => 'user.restore.user' , 'uses' => 'UserController@getRestore']);
+        Route::post('/force-del' , ['as' => 'user.force.del' , 'uses' => 'UserController@forceDel']);
     });
 });

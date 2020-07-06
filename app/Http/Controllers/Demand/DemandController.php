@@ -6,31 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Demand;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\EmpDemandRequest;
 use App\Http\Requests\AdminDemandRequest;
-use Mpdf\Tag\U;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class DemandController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function index()
     {
         return view('dashboard.demand.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
+
     public function create()
     {
 
@@ -81,12 +69,8 @@ class DemandController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
+
 
 //EmpDemandRequest
     public function store(EmpDemandRequest $request)
@@ -138,6 +122,10 @@ class DemandController extends Controller
     }
 
 
+
+
+
+
     public function showSingleMessages($id_not, $id_d)
     {
         $user = User::findOrFail(auth()->id());
@@ -167,43 +155,20 @@ class DemandController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+    public function getTypeMessages(Request $request)
     {
-        //
+
+        $user = User::find(auth()->id());
+        $demands = $user->demands()->where('status' , '=' , $request->status) ->paginate(10);
+
+        if ($demands->count() == 0)
+        {
+            Alert::info('لا يوجد شئ');
+        }
+
+        return view('dashboard.demand.show-demand.inbox_show' , ['demands' => $demands]);
+
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
-
-
-
 
 }

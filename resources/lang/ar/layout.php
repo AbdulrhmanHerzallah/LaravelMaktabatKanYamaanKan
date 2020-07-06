@@ -36,7 +36,7 @@ return [
     'public_file' => 'الملفات العامة المشتركة',
     'file_cat' => 'إدارة التصنيفات',
     'all_files' => 'جميع ملفات الموظفين',
-    'demands' => 'الطالبات',
+    'demands' => 'الطلبات',
     'create_demand' => 'إنشاء طلب',
     'create_admin_demand' => 'إنشاء طلب للمدير',
     'add_a_new_project' => 'إضافة مشروع جديد',

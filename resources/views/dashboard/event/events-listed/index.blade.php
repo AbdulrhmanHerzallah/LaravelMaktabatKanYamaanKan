@@ -8,9 +8,29 @@
 @endsection
 @section('content')
 <div class="container mt-5">
+
+
+
+
     <div class="content mt-2">
         {{ Breadcrumbs::render('event_listed') }}
     </div>
+
+    <form action="{{route('listed_get_state')}}" method="post">
+        @csrf
+        <div class="form-group">
+            <label for="cat">عرض حالة المشروع حسب التصنيف</label>
+            <div class="form-group">
+                <select name="state" class="form-control col-6 d-inline-block" id="cat">
+                    <option @if(old('c')) selected @endif value="c">مكتمل</option>
+                    <option @if(old('u')) selected @endif value="u">غير مكتمل</option>
+                </select>
+                <button type="submit" class="btn btn-outline-primary mb-2" style="font-size: 12px"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </form>
+
+    <a href="{{route('listed_event.index')}}" class="btn btn-outline-primary mb-2" style="font-size: 12px">جميع المشاريع المدرجة</a>
     <table class="table table-striped table-dark">
         <thead>
         <tr>
@@ -84,11 +104,16 @@
                 <form action="{{route('event.update-state')}}" method="post">
                     @csrf
                     <input type="hidden" id="id" name="id">
-                    <select name="state" class="custom-select custom-select-sm">
-                        <option selected>تحديث الحالة</option>
-                        <option id="c" value="c">مكتمل</option>
-                        <option id="u" value="u">غير مكتمل</option>
-                    </select>
+
+                        <div class="form-group">
+                            <label for="state">تعديل حالة المشروع</label>
+                            <select id="state" name="state" class="custom-select custom-select-sm">
+                                <option id="c" value="c">مكتمل</option>
+                                <option id="u" value="u">غير مكتمل</option>
+                            </select>
+                        </div>
+
+
                     <div  class="p-3">
                         <button type="submit" class="btn btn-primary">تحديث الحالة</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">إالغاء</button>

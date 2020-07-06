@@ -80,12 +80,14 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
        Route::get('/show-all-my-demand' , ['as' => 'demand.show-my-demand' , 'uses' => 'DemandController@showAllMyMessages']);
        Route::get('/show-inbox-demand' , ['as' => 'demand.show-inbox-demand' , 'uses' => 'DemandController@showInboxMessages']);
        Route::get('/show-single-demand/{id_not}/{id_d}' , ['as' => 'demand.show-single-demand' , 'uses' => 'DemandController@showSingleMessages']);
+       Route::post('/cat-demand' , ['as' => 'demand.getTypeMessages' , 'uses' => 'DemandController@getTypeMessages']);
     });
 
     Route::group(['prefix' => 'event' , 'namespace' => 'Event'] , function (){
         Route::get('/create' , ['as' => 'event.create' , 'uses' => 'EventController@create']);
         Route::post('/store' , ['as' => 'event.store' , 'uses' => 'EventController@store']);
         Route::get('/events-listed/index' , ['as' => 'listed_event.index' , 'uses' => 'EventController@index']);
+        Route::post('/events-get-state' , ['as' => 'listed_get_state' , 'uses' => 'EventController@getState']);
         Route::get('/show/{id}/{id_noty?}' , ['as' => 'show_event.show' , 'uses' => 'EventController@show']);
         Route::post('/update-state' , ['as' => 'event.update-state' , 'uses' => 'EventController@update_state']);
         Route::get('/calendar' , ['as' => 'event.calendar' , 'uses' => 'EventController@calendar']);

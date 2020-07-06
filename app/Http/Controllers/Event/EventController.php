@@ -19,6 +19,9 @@ class EventController extends Controller
 
     public function index()
     {
+
+
+
         $user = User::find(auth()->id());
         $events = $user->events()->paginate(10);
         if ($events->count() == 0)
@@ -28,6 +31,29 @@ class EventController extends Controller
         }
         return view('dashboard.event.events-listed.index' , ['events' => $events]);
     }
+
+
+    public function getState(Request $request)
+    {
+
+
+
+        $user = User::find(auth()->id());
+        $events = $user->events()->where('state' , '=' , $request->state)->paginate(10);
+        if ($events->count() == 0)
+        {
+            Alert::info('لا يوجد مشاريع لك!');
+
+        }
+        return view('dashboard.event.events-listed.index' , ['events' => $events]);
+    }
+
+
+
+
+
+
+
 
     public function calendar()
     {

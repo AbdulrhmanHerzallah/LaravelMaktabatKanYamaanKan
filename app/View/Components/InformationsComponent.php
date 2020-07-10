@@ -26,7 +26,7 @@ class InformationsComponent extends Component
     {
 
         $user = User::find(auth()->id());
-        $count_my_events = $user->my_events->count();
+        $count_my_events = $user->my_events->where('state' , '=' , 'u')->count();
         return view('components.informations-component' , compact('count_my_events'));
     }
 }

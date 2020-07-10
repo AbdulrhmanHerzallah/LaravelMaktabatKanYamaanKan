@@ -13,8 +13,8 @@
                 <label for="cat">ترتيب الطلبات حسب التصنيف</label>
                 <div class="form-group">
                     <select name="status" class="form-control col-6 d-inline-block" id="cat">
-                        <option @if(old('h')) selected @endif value="h">مستعجل</option>
-                        <option @if(old('n')) selected @endif value="n">غير مستعجل</option>
+                        <option @if(old('status') == 'h') selected @endif value="h">مستعجل</option>
+                        <option @if(old('status') == 'n') selected @endif value="n">غير مستعجل</option>
                     </select>
                     <button type="submit" class="btn btn-outline-primary mb-2" style="font-size: 12px"><i class="fas fa-search"></i></button>
                 </div>

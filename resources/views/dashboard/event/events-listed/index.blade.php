@@ -22,8 +22,8 @@
             <label for="cat">عرض حالة المشروع حسب التصنيف</label>
             <div class="form-group">
                 <select name="state" class="form-control col-6 d-inline-block" id="cat">
-                    <option @if(old('c')) selected @endif value="c">مكتمل</option>
-                    <option @if(old('u')) selected @endif value="u">غير مكتمل</option>
+                    <option @if(old('state') == 'c') selected @endif value="c">مكتمل</option>
+                    <option @if(old('state') == 'u') selected @endif value="u">غير مكتمل</option>
                 </select>
                 <button type="submit" class="btn btn-outline-primary mb-2" style="font-size: 12px"><i class="fas fa-search"></i></button>
             </div>

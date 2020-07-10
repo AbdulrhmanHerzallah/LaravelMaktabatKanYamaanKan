@@ -28,20 +28,22 @@
     </div>
 </div>
 {{--<!-- ./col -->--}}
+
+
 <div class="col-lg-3 col-6 text-white">
     <!-- small box -->
-    <div class="small-box" style="background-color: #2e86de">
+    <div class="small-box" style="background-color: #b71540">
         <div class="inner">
-            <h3>{{App\Models\Event::count() ?? '0'}}</h3>
+            <h3>{{$count_my_events}}</h3>
 
-            <p>عدد المشاريع</p>
+            <p>عدد جميع المشاريع الغير مكتملة</p>
         </div>
         <div class="icon">
             <i class="far fa-calendar-alt nav-icon"></i>
         </div>
-{{--        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
     </div>
 </div>
+
 <!-- ./col -->
 <div class="col-lg-3 col-6 text-dark">
     <!-- small box -->
@@ -103,3 +105,20 @@
 {{--        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
     </div>
 </div>
+@if(auth()->user()->permission == 1)
+
+    <div class="col-lg-3 col-6 text-white">
+        <!-- small box -->
+        <div class="small-box" style="background-color: #2e86de">
+            <div class="inner">
+                <h6>{{App\Models\Event::where('state' , '=' , 'u')->count() ?? '0'}}</h6>
+
+                <p>عدد جميع المشاريع الغير مكتملة في النظام</p>
+            </div>
+            <div class="icon">
+                <i class="far fa-calendar-times nav-icon"></i>
+            </div>
+            {{--        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>--}}
+        </div>
+    </div>
+@endif

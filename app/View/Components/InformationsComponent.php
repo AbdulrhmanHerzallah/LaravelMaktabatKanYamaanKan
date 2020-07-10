@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\User;
 
 class InformationsComponent extends Component
 {
@@ -23,6 +24,9 @@ class InformationsComponent extends Component
      */
     public function render()
     {
-        return view('components.informations-component');
+
+        $user = User::find(auth()->id());
+        $count_my_events = $user->my_events->count();
+        return view('components.informations-component' , compact('count_my_events'));
     }
 }

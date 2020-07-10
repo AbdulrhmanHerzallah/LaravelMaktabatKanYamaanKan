@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Demand::class)->withTimestamps()->orderBy('id' , 'DESC');
     }
 
+    public function my_events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
 
 
 //    public function events()

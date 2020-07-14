@@ -97,7 +97,9 @@ class FilesDownloadController extends Controller
         if ($user->id == auth()->id())
         {
             $file = File::find($request->id);
-            Storage::delete($file->file_path);
+            if(Storage::exists($file->file_path)){
+                Storage::delete($file->file_path);
+            }
             $file->delete();
             toast('تم حذف الملف بنجاح','success');
 

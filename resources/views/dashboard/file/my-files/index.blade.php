@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <select name="cat_id" class="form-control col-6 d-inline-block" id="cat">
                         @foreach($filesCategorie as $item)
-                            <option value="{{$item->id}}">{{$item->category_name}}</option>
+                            <option @if(old('cat_id') == $item->id) selected @endif value="{{$item->id}}">{{$item->category_name}}</option>
                         @endforeach
                     </select>
                     <button type="submit" class="btn btn-outline-primary mb-2" style="font-size: 12px"><i class="fas fa-search"></i></button>
@@ -71,7 +71,9 @@
             </tbody>
         </table>
         <div class="d-flex justify-content-center mt-2 mb-4">
-            {{ $files->links() }}
+            @if($files instanceof \Illuminate\Pagination\LengthAwarePaginator )
+                {{ $files->links() }}
+            @endif
         </div>
 
         <!-- Modal -->

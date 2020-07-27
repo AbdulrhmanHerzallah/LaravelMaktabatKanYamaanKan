@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use \PDF;
 
 
+
 use App\Http\Requests\BillWithoutBillNumberRequest as PrintPdfRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -176,6 +177,15 @@ class BillController extends Controller
             return $pdf->stream($bill->bill_number.'.pdf');
         }
         return "<script>window.close()</script>";
+    }
+
+
+    public function dellBill(Request $request)
+    {
+        $bill = Bill::find($request->id);
+        $bill->delete();
+        return redirect()->back();
+
     }
 
 

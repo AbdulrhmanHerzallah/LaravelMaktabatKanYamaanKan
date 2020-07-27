@@ -41,6 +41,7 @@ Route::group(['prefix' => 'dashboard' , 'middleware' => 'auth'], function (){
         Route::get('/my-bill/show' , ['as' => 'bill.showMyBill' , 'uses' => 'BillController@showMyBill']);
         Route::get('/all-bills/show' , ['as' => 'bill.all_bills_admin' , 'uses' => 'BillController@showAllBillByAdmin'])->middleware('AdminAndBranchManager');
         Route::get('/show-bill-stream/{id}' , ['as' => 'bill.showBillStream' , 'uses' => 'BillController@showBillStream']);
+        Route::post('/dell-bill' , ['as' => 'bill-del' , 'uses' => 'BillController@dellBill']);
     });
 
 
